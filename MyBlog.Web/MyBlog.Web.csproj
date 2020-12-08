@@ -5,17 +5,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\assets\js\.idea\codeStyles\codeStyleConfig.xml" />
+    <Content Include="wwwroot\assets\js\.idea\modules.xml" />
+    <Content Include="wwwroot\assets\js\.idea\workspace.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MyBlog.Core\MyBlog.Core.csproj" />
     <ProjectReference Include="..\MyBlog.DataLayer\MyBlog.DataLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\js\.idea\js.iml" />
   </ItemGroup>
 
 </Project>
