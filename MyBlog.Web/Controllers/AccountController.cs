@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.Core.Convertors;
 using MyBlog.Core.DTOs;
@@ -91,8 +94,22 @@ namespace MyBlog.Web.Controllers
             {
                 if (user.IsActive)
                 {
-                    //ToDO Login User
-                    ViewBag.IsSuccess = true; 
+
+                    var claims = new List<Claim>()
+                    {
+                        new Claim(ClaimTypes.NameIdentifier,user.UserId.ToString()),
+                        new Claim(ClaimTypes.Name,user.UserName)
+                    };
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+
+                    var properties = new AuthenticationProperties
+                    {
+                        IsPersistent = login.RememberMe
+                    };
+                    HttpContext.SignInAsync(principal, properties);
+
+                    ViewBag.IsSuccess = true;
                     return View();
                 }
                 else
@@ -114,5 +131,16 @@ namespace MyBlog.Web.Controllers
         }
 
         #endregion
+
+        #region Logout
+        [Route("Logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Redirect("/Login");
+        }
+
+        #endregion
+
     }
 }

@@ -41,10 +41,21 @@
                         </div>
                     </div>
                     <ul class="header-user-links">
+                        @if (User.Identity.IsAuthenticated)
+                        {
                         <li>
-                            <a href="/Login">ورود</a>/
-                            <a href="/Register">ثبت نام</a>
+                            <i><a href="">@User.Identity.Name</a></i>/
+                            <a href="/Logout"> خروج</a>
                         </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="/Login">ورود</a>/
+                                <a href="/Register">ثبت نام</a>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>
