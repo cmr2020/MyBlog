@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MyBlog.Core.Services;
+using MyBlog.Core.Services.Interfaces;
 using MyBlog.DataLayer.Context;
 
 namespace MyBlog.Web
@@ -31,6 +33,11 @@ namespace MyBlog.Web
             { options.UseSqlServer("Data Source =.;Initial Catalog=MyBlog_DB;Integrated Security=true"); });
 
             #endregion
+
+            #endregion
+            #region IoC
+
+            services.AddTransient<IUserService, UserService>();
 
             #endregion
             services.AddControllersWithViews();
