@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "فعالسازی";
+}
+<div class="col-lg-12">
+    <div class="breadcrumb-trail breadcrumbs">
+        <ul class="trail-items breadcrumb">
+            <li class="trail-item trail-begin">
+                <a href="/">خانه</a>
+            </li>
+            <li class="trail-item trail-end active">
+                فعالسازی حساب کاربری
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="container">
+    @if (ViewBag.IsActive)
+    {
+        <div class="alert alert-success">
+            <p>حساب کاربری شما با موفقیت فعال شد</p>
+            <p>
+                <a href="/Login">ورود به سایت</a>
+            </p>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <p>حساب کاربری با مشخصات ارسال شده یافت نشد</p>
+        </div>
+    }
+</div>
+

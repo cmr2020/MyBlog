@@ -1,4 +1,8 @@
-﻿using MyBlog.Core.Services.Interfaces;
+﻿using MyBlog.Core.Convertors;
+using MyBlog.Core.DTOs;
+using MyBlog.Core.Generator;
+using MyBlog.Core.Security;
+using MyBlog.Core.Services.Interfaces;
 using MyBlog.DataLayer.Context;
 using MyBlog.DataLayer.Entities.User;
 using System;
@@ -32,6 +36,26 @@ namespace MyBlog.Core.Services
             _context.Users.Add(user);
             _context.SaveChanges();
             return user.UserId;
+        }
+
+        public User LoginUser(LoginViewModel login)
+        {
+            string hashPassword = PasswordHelper.EncodePasswordMd5(login.Password);
+            string email = FixedText.FixEmail(login.Email);
+            return _context.Users.SingleOrDefault(u => u.Email == email && u.Password == hashPassword);
+        }
+
+        public bool ActiveAccount(string activeCode)
+        {
+            var user = _context.Users.SingleOrDefault(u => u.ActiveCode == activeCode);
+            if (user == null || user.IsActive)
+                return false;
+
+            user.IsActive = true;
+            user.ActiveCode = NameGenerator.GenerateUniqCode();
+            _context.SaveChanges();
+
+            return true;
         }
     }
 }

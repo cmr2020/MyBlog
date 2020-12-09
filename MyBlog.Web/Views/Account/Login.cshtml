@@ -1,0 +1,72 @@
+﻿@model MyBlog.Core.DTOs.LoginViewModel
+@{
+    ViewData["Title"] = "ورود به سایت";
+}
+
+<div class="col-lg-12">
+    <div class="breadcrumb-trail breadcrumbs">
+        <ul class="trail-items breadcrumb">
+            <li class="trail-item trail-begin">
+                <a href="/">خانه</a>
+            </li>
+            <li class="trail-item trail-end active">
+                ورود در سایت
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="content-area col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="site-main">
+        <h3 class="custom_blog_title">
+            احراز هویت
+        </h3>
+        @if (ViewBag.IsSuccess != null)
+        {
+            <div class="alert alert-success">
+                <p class="help-block">ورود با موفقیت انجام شد</p>
+            </div>
+
+            <script>
+                // Your delay in milliseconds
+                var delay = 3000;
+                setTimeout(function () { window.location = "https://localhost:44350/"; }, delay);
+            </script>
+        }
+        <div class="customer_login">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="login-item">
+                        <h5 class="title-login">ورود به حساب کاربری خود</h5>
+                        <form class="login" asp-action="Login" method="post">
+
+                            <p class="form-row form-row-wide">
+                                <label class="text">ایمیل</label>
+                                <input asp-for="Email" title="email" type="text" class="input-text">
+                            </p>
+                            <span asp-validation-for="Email"></span>
+                            <p class="form-row form-row-wide">
+                                <label class="text">پسورد</label>
+                                <input asp-for="Password" title="password" type="password" class="input-text">
+                            </p>
+                            <span asp-validation-for="Password"></span>
+                            <p class="lost_password">
+                                <span class="inline">
+                                    <input asp-for="RememberMe" type="checkbox" id="cb1">
+                                    <label for="cb1" class="label-text">مرا به خاطر بسپار</label>
+                                </span>
+                                <a href="/ForgotPassword" class="forgot-pw">رمز عبور را فراموش کرده اید؟</a><br />
+                                <a href="/Register" class="forgot-pw">عضویت در سایت</a>
+                            </p>
+                            <p class="form-row">
+                                <input type="submit" class="button-submit" value="ورود">
+                            </p>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
