@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.Core.Convertors;
 using MyBlog.Core.DTOs;
+using MyBlog.Core.Generator;
+using MyBlog.Core.Security;
 using MyBlog.Core.Services.Interfaces;
 
 namespace MyBlog.Web.Controllers
@@ -26,6 +28,7 @@ namespace MyBlog.Web.Controllers
 
 
         [HttpPost]
+        [Route("Register")]
         public IActionResult Register(RegisterViewModel register)
         {
             if (!ModelState.IsValid)
@@ -47,9 +50,19 @@ namespace MyBlog.Web.Controllers
             }
 
 
-            //TODO: Register User
+            DataLayer.Entities.User.User user = new DataLayer.Entities.User.User()
+            {
+                ActiveCode = NameGenerator.GenerateUniqCode(),
+                Email = FixedText.FixEmail(register.Email),
+                IsActive = false,
+                Password = PasswordHelper.EncodePasswordMd5(register.Password),
+                RegisterDate = DateTime.Now,
+                UserAvatar = "Defult.jpg",
+                UserName = register.UserName
 
-            return View();
+            };
+            _userService.AddUser(user);
+            return View("SuccessRegister", user);
         }
     }
 }

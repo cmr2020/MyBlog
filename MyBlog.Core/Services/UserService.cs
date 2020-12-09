@@ -1,5 +1,6 @@
 ﻿using MyBlog.Core.Services.Interfaces;
 using MyBlog.DataLayer.Context;
+using MyBlog.DataLayer.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,13 @@ namespace MyBlog.Core.Services
         public bool IsExistEmail(string email)
         {
             return _context.Users.Any(u => u.Email == email);
+        }
+
+        public int AddUser(User user)
+        {
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            return user.UserId;
         }
     }
 }
