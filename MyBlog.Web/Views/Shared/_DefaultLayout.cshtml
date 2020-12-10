@@ -43,10 +43,10 @@
                     <ul class="header-user-links">
                         @if (User.Identity.IsAuthenticated)
                         {
-                        <li>
-                            <i><a href="">@User.Identity.Name</a></i>/
-                            <a href="/Logout"> خروج</a>
-                        </li>
+                            <li>
+                                <i><a href="">@User.Identity.Name</a></i>/
+                                <a href="/Logout"> خروج</a>
+                            </li>
                         }
                         else
                         {
@@ -285,16 +285,15 @@
         <!--MainMenu-->
         <partial name="_MainMenu" />
         <!--EndMainMenu-->
-
         <!--Content-->
         @RenderBody();
         <!--EndContent-->
-
         <!--Footer-->
         <partial name="_Footer" />
         <!--EndFooter-->
         <partial name="_Scripts" />
         <script src="/assets/js/jquery.validate.min.js"></script>
         <script src="/assets/js/jquery.validate.unobtrusive.js"></script>
+        @RenderSection("Scripts", false)
 </body>
 </html>

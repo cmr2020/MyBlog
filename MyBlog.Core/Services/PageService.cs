@@ -53,5 +53,10 @@ namespace MyBlog.Core.Services
         {
             _db.SaveChanges();
         }
+
+        public bool PageExists(int pageId)
+        {
+            return _db.Pages.Any(p => p.PageID == pageId);
+        }
     }
 }

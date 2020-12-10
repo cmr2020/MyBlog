@@ -13,6 +13,7 @@ namespace MyBlog.Core.Services.Interfaces
         void UpdatePage(Page page);
         void DeletePage(Page page);
         void DeletePage(int pageId);
+        bool PageExists(int pageId);
         void Save();
     }
 }
