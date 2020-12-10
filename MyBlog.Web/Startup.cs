@@ -61,6 +61,8 @@ namespace MyBlog.Web
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IViewRenderService, RenderViewToString>();
+            services.AddTransient<IPageService, PageService>();
+            services.AddTransient<IPageGroupService, PageGroupService>();
             #endregion
 
 
@@ -82,6 +84,9 @@ namespace MyBlog.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                   name: "areas",
+                   pattern: "{area:exists}/{controller=Home}/{action=Index}");
                 endpoints.MapControllerRoute(
                    name: "default",
                    pattern: "{controller=Home}/{action=Index}/{id?}");
