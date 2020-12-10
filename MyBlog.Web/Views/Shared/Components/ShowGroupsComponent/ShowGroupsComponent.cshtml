@@ -1,0 +1,16 @@
+﻿@model IEnumerable<MyBlog.Core.DTOs.ShowGroupsViewModel>
+    <div class="widget widget-categories">
+        <h3 class="widgettitle">دسته بندی</h3>
+        <ul class="list-categories">
+            @foreach (var item in Model)
+            {
+                <li>
+                    <span>@item.PageCount</span>
+                    <label for="cb1" class="label-text">
+                        @item.GroupTitle
+                    </label>
+                </li>
+            }
+
+        </ul>
+    </div>

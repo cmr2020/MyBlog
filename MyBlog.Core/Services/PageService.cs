@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyBlog.Core.DTOs;
 using MyBlog.Core.Services.Interfaces;
 using MyBlog.DataLayer.Context;
 using MyBlog.DataLayer.Entities.Page;
@@ -58,5 +59,25 @@ namespace MyBlog.Core.Services
         {
             return _db.Pages.Any(p => p.PageID == pageId);
         }
+
+        public IEnumerable<ShowTopPageViewModel> GetTopPage(int take = 4)
+        {
+            //return _db.Pages.OrderByDescending(p => p.PageVisit).Take(take).ToList();
+            return _db.Pages.Include(p => p.PageGroup).OrderByDescending(p=> p.PageVisit).Select(p => new ShowTopPageViewModel()
+            {
+                Imagename=p.ImageName,
+                PageTitle=p.PageTitle,
+                Grouptitle=_db.PageGroups.SingleOrDefault(c=> c.GroupID==c.GroupID).GroupTitle
+              
+                
+            }).Take(take).ToList();
+        }
+
+        public IEnumerable<Page> GetLatesPage()
+        {
+            return _db.Pages.OrderByDescending(p => p.CreateDate).Take(4).ToList();
+        }
+
+        
     }
 }

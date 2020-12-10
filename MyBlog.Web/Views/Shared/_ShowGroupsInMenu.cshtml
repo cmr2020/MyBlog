@@ -1,0 +1,43 @@
+﻿@using MyBlog.Core.Services.Interfaces
+@inject IPageGroupService _groupService
+    <div class="header-nav-container rows-space-20">
+        <div class="container">
+            <div class="header-nav-wapper main-menu-wapper">
+                <div class="vertical-wapper block-nav-categori">
+                    <div class="block-title">
+                        <span class="icon-bar">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                        <span class="text">تمامی دسته بندی ها</span>
+                    </div>
+                    <div class="block-content verticalmenu-content">
+                        <ul class="LCommerce-nav-vertical vertical-menu LCommerce-clone-mobile-menu">
+                            @foreach (var item in _groupService.GetListGroups())
+                            {
+                                <li class="menu-item">
+                                    <a href="#" class="LCommerce-menu-item-title" title="اجناس جدید">@item.GroupTitle </a>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="header-nav">
+                    <div class="container-wapper">
+                        <ul class="LCommerce-clone-mobile-menu LCommerce-nav main-menu " id="menu-main-menu">
+                           
+                           
+                            <li class="menu-item  menu-item-has-children item-megamenu">
+                               
+                            
+                            <li class="menu-item">
+                                <a href="about.html" class="LCommerce-menu-item-title" title="درباره ما">درباره ما</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

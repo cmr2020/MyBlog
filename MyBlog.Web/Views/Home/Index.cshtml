@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<MyBlog.DataLayer.Entities.Page.Page>
 @{
     ViewData["Title"] = "صفحه اصلی";
 }
@@ -26,248 +26,60 @@
                         وبلاگ ما
                     </h3>
                     <div class="blog-list list-style">
-                        <div class="blog-item">
-                            <div class="post-format">
-                                <a href="#">
-                                    <img src="/assets/images/blog-item-list-1.jpg" alt="img">
-                                </a>
-                            </div>
-                            <div class="post-info">
-                                <div class="category-blog">
-                                    <a href="#">لوازم جانبی</a>
+                        @foreach (var item in Model)
+                        {
+                            <div class="blog-item">
+                                <div class="post-format">
+                                    <a href="#">
+                                        <img  src="/assets/images/blog-item-list-2.jpg" alt="img">
+                                    </a>
                                 </div>
-                                <h3 class="post-title">
-                                    <a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم <span>[...]</span></a>
-                                </h3>
-                                <div class="main-info-post">
-                                    <p class="des">
-                                        سفیده تخم مرغ ، سوسیس بوقلمون ، نان تست گندم ، آب. البته آنها نمی خواهند ما بخوریم[...]
-                                    </p>
-                                </div>
-                                <div class="author-view">
-                                    <div class="author">
-                                        <div class="avt">
-                                            <img src="/assets/images/avt-blog1.png" alt="img">
-                                        </div>
-                                        <h3 class="name">
-                                            علی نیازی
-                                        </h3>
+                                <div class="post-info">
+                                    <div class="category-blog">
+                                        <a href="#">لوازم جانبی</a>
                                     </div>
-                                    <div class="review">
-                                        <div class="view">
-                                            <span class="icon-view">
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </span>
-                                            <span class="count">
-                                                631
-                                            </span>
-                                        </div>
-                                        <div class="s-comments">
-                                            <span class="icon-cmt">
-                                                <i class="fa fa-commenting" aria-hidden="true"></i>
-                                            </span>
-                                            <span class="count">
-                                                82
-                                            </span>
-                                        </div>
+                                    <h3 class="post-title">
+                                        <a href="#">@item.PageTitle <span>[...]</span></a>
+                                    </h3>
+                                    <div class="main-info-post">
+                                        <p class="des">
+                                           @item.ShortDescription
+                                        </p>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="blog-item">
-                            <div class="post-format">
-                                <a href="#">
-                                    <img src="/assets/images/blog-item-list-2.jpg" alt="img">
-                                </a>
-                            </div>
-                            <div class="post-info">
-                                <div class="category-blog">
-                                    <a href="#">لوازم جانبی,</a>
-                                    <a href="#">تن پوش,</a>
-                                    <a href="#">کیف های دستی</a>
-                                </div>
-                                <h3 class="post-title">
-                                    <a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم <span>[...]</span></a>
-                                </h3>
-                                <div class="main-info-post">
-                                    <p class="des">
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
-                                    </p>
-                                </div>
-                                <div class="author-view">
-                                    <div class="author">
-                                        <div class="avt">
-                                            <img src="/assets/images/avt-blog1.png" alt="img">
+                                    }
+                                    <div class="author-view">
+                                        <div class="author">
+                                            <div class="avt">
+                                                <img src="/assets/images/avt-blog1.png" alt="img">
+                                            </div>
+                                            <h3 class="name">
+                                                علی نیازی
+                                            </h3>
                                         </div>
-                                        <h3 class="name">
-                                            علی نیازی
-                                        </h3>
-                                    </div>
-                                    <div class="review">
-                                        <div class="view">
-                                            <span class="icon-view">
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </span>
-                                            <span class="count">
-                                                631
-                                            </span>
-                                        </div>
-                                        <div class="s-comments">
-                                            <span class="icon-cmt">
-                                                <i class="fa fa-commenting" aria-hidden="true"></i>
-                                            </span>
-                                            <span class="count">
-                                                82
-                                            </span>
+                                        
+                                        <div class="review">
+                                            <div class="view">
+                                                <span class="icon-view">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </span>
+                                                <span class="count">
+                                                    631
+                                                </span>
+                                            </div>
+                                            <div class="s-comments">
+                                                <span class="icon-cmt">
+                                                    <i class="fa fa-commenting" aria-hidden="true"></i>
+                                                </span>
+                                                <span class="count">
+                                                    82
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="blog-item">
-                            <div class="post-format">
-                                <a href="#">
-                                    <img src="/assets/images/blog-item-list-3.jpg" alt="img">
-                                </a>
-                            </div>
-                            <div class="post-info">
-                                <div class="category-blog">
-                                    <a href="#">کوله پشتی</a>
-                                </div>
-                                <h3 class="post-title">
-                                    <a href="#">ما شما را با کارمان بهترین می کنیم<span>[...]</span></a>
-                                </h3>
-                                <div class="main-info-post">
-                                    <p class="des">
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.[...]
-                                    </p>
-                                </div>
-                                <div class="author-view">
-                                    <div class="author">
-                                        <div class="avt">
-                                            <img src="/assets/images/avt-blog1.png" alt="img">
-                                        </div>
-                                        <h3 class="name">
-                                            علی نیازی
-                                        </h3>
-                                    </div>
-                                    <div class="review">
-                                        <div class="view">
-                                            <span class="icon-view">
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </span>
-                                            <span class="count">
-                                                631
-                                            </span>
-                                        </div>
-                                        <div class="s-comments">
-                                            <span class="icon-cmt">
-                                                <i class="fa fa-commenting" aria-hidden="true"></i>
-                                            </span>
-                                            <span class="count">
-                                                82
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="blog-item">
-                            <div class="post-format">
-                                <a href="#">
-                                    <img src="/assets/images/blog-item-list-4.jpg" alt="img">
-                                </a>
-                            </div>
-                            <div class="post-info">
-                                <div class="category-blog">
-                                    <a href="#">سبک زندگی</a>
-                                </div>
-                                <h3 class="post-title">
-                                    <a href="#">چگونه می توان الکترونیک ایده آل خود را ساخت<span>[...]</span></a>
-                                </h3>
-                                <div class="main-info-post">
-                                    <p class="des">
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
-                                    </p>
-                                </div>
-                                <div class="author-view">
-                                    <div class="author">
-                                        <div class="avt">
-                                            <img src="/assets/images/avt-blog1.png" alt="img">
-                                        </div>
-                                        <h3 class="name">
-                                            علی نیازی
-                                        </h3>
-                                    </div>
-                                    <div class="review">
-                                        <div class="view">
-                                            <span class="icon-view">
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </span>
-                                            <span class="count">
-                                                631
-                                            </span>
-                                        </div>
-                                        <div class="s-comments">
-                                            <span class="icon-cmt">
-                                                <i class="fa fa-commenting" aria-hidden="true"></i>
-                                            </span>
-                                            <span class="count">
-                                                82
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="blog-item">
-                            <div class="post-format">
-                                <a href="#">
-                                    <img src="/assets/images/blog-item-list-5.jpg" alt="img">
-                                </a>
-                            </div>
-                            <div class="post-info">
-                                <div class="category-blog">
-                                    <a href="#">سبک زندگی</a>
-                                </div>
-                                <h3 class="post-title">
-                                    <a href="#">طراح جدید مبلمان فضای باز <span>[...]</span></a>
-                                </h3>
-                                <div class="main-info-post">
-                                    <p class="des">
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
-                                    </p>
-                                </div>
-                                <div class="author-view">
-                                    <div class="author">
-                                        <div class="avt">
-                                            <img src="/assets/images/avt-blog1.png" alt="img">
-                                        </div>
-                                        <h3 class="name">
-                                            علی نیازی
-                                        </h3>
-                                    </div>
-                                    <div class="review">
-                                        <div class="view">
-                                            <span class="icon-view">
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </span>
-                                            <span class="count">
-                                                631
-                                            </span>
-                                        </div>
-                                        <div class="s-comments">
-                                            <span class="icon-cmt">
-                                                <i class="fa fa-commenting" aria-hidden="true"></i>
-                                            </span>
-                                            <span class="count">
-                                                82
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        }
+
                     </div>
                     <div class="pagination clearfix style2">
                         <div class="nav-link">
@@ -300,86 +112,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="widget widget-categories">
-                        <h3 class="widgettitle">دسته بندی</h3>
-                        <ul class="list-categories">
-                            <li>
-                                <input type="checkbox" id="cb1">
-                                <label for="cb1" class="label-text">
-                                    اجناس جدید
-                                </label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="cb2">
-                                <label for="cb2" class="label-text">
-                                    الکترونیک
-                                </label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="cb3">
-                                <label for="cb3" class="label-text">
-                                    میز ها
-                                </label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="cb4">
-                                <label for="cb4" class="label-text">
-                                    تلویزیون و فیلم
-                                </label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="cb5">
-                                <label for="cb5" class="label-text">
-                                    لوازم جانبی
-                                </label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="cb6">
-                                <label for="cb6" class="label-text">
-                                    هدفون ها
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="widget widget-post">
-                        <h3 class="widgettitle">مقالات محبوب</h3>
-                        <ul class="LCommerce-posts">
-                            <li class="widget-post-item">
-                                <div class="thumb-blog">
-                                    <img src="/assets/images/sidebar-post1.jpg" alt="img">
-                                </div>
-                                <div class="post-content">
-                                    <div class="cat">
-                                        <a href="#">سبک زندگی</a>
-                                    </div>
-                                    <h5 class="post-title"><a href="#">9 نکاتی که تغییر می کنند  <span>[...]</span></a></h5>
-                                </div>
-                            </li>
-                            <li class="widget-post-item">
-                                <div class="thumb-blog">
-                                    <img src="/assets/images/sidebar-post2.jpg" alt="img">
-                                </div>
-                                <div class="post-content">
-                                    <div class="cat">
-                                        <a href="#">دفترچه جست و جو</a>
-                                    </div>
-                                    <h5 class="post-title"><a href="#">9 نکاتی که تغییر می کنند  <span>[...]</span></a></h5>
-                                </div>
-                            </li>
-                            <li class="widget-post-item">
-                                <div class="thumb-blog">
-                                    <img src="/assets/images/sidebar-post3.jpg" alt="img">
-                                </div>
-                                <div class="post-content">
-                                    <div class="cat">
-                                        <a href="#">استایل خیابانی</a>
-                                    </div>
-                                    <h5 class="post-title"><a href="#">9 نکاتی که تغییر می کنند  <span>[...]</span></a></h5>
-                                </div>
-                            </li>
 
-                        </ul>
-                    </div>
+                  @await Component.InvokeAsync("ShowGroupsComponent")
+
+
+                  @await Component.InvokeAsync("ShowTopPageComponent")
+
                     <div class="widget widget-tags">
                         <h3 class="widgettitle">
                             برچسب های معروف

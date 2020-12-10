@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyBlog.Core.DTOs;
 using MyBlog.Core.Services.Interfaces;
 using MyBlog.DataLayer.Context;
 using MyBlog.DataLayer.Entities.PageGroup;
@@ -58,6 +59,16 @@ namespace MyBlog.Core.Services
         public bool PageGroupExists(int pageGroupId)
         {
             return _db.PageGroups.Any(p => p.GroupID == pageGroupId);
+        }
+
+        public List<ShowGroupsViewModel> GetListGroups()
+        {
+            return _db.PageGroups.Select(g => new ShowGroupsViewModel()
+            {
+                GroupID = g.GroupID,
+                GroupTitle = g.GroupTitle,
+                PageCount = _db.Pages.Where(p => p.GroupID == g.GroupID).Count()
+            }).ToList();
         }
     }
 }
