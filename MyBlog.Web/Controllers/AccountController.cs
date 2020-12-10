@@ -10,6 +10,7 @@ using MyBlog.Core.Convertors;
 using MyBlog.Core.DTOs;
 using MyBlog.Core.Generator;
 using MyBlog.Core.Security;
+using MyBlog.Core.Senders;
 using MyBlog.Core.Services.Interfaces;
 
 namespace MyBlog.Web.Controllers
@@ -17,10 +18,12 @@ namespace MyBlog.Web.Controllers
     public class AccountController : Controller
     {
         private IUserService _userService;
+        private IViewRenderService _viewRender;
 
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, IViewRenderService viewRender)
         {
             _userService = userService;
+            _viewRender = viewRender;
         }
 
         #region Register
@@ -67,6 +70,14 @@ namespace MyBlog.Web.Controllers
 
             };
             _userService.AddUser(user);
+
+            #region Send Activation Email
+
+            string body = _viewRender.RenderToStringAsync("_ActiveEmail", user);
+            SendEmail.Send(user.Email, "فعالسازی", body);
+
+            #endregion
+
             return View("SuccessRegister", user);
         }
         #endregion
@@ -142,5 +153,67 @@ namespace MyBlog.Web.Controllers
 
         #endregion
 
+        #region Forgot Password
+        [Route("ForgotPassword")]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("ForgotPassword")]
+        public ActionResult ForgotPassword(ForgotPasswordViewModel forgot)
+        {
+            if (!ModelState.IsValid)
+                return View(forgot);
+
+            string fixedEmail = FixedText.FixEmail(forgot.Email);
+            DataLayer.Entities.User.User user = _userService.GetUserByEmail(fixedEmail);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("Email", "کاربری یافت نشد");
+                return View(forgot);
+            }
+
+            string bodyEmail = _viewRender.RenderToStringAsync("_ForgotPassword", user);
+            SendEmail.Send(user.Email, "بازیابی حساب کاربری", bodyEmail);
+            ViewBag.IsSuccess = true;
+
+            return View();
+        }
+        #endregion
+
+
+        #region Reset Password
+
+        public ActionResult ResetPassword(string id)
+        {
+            return View(new ResetPasswordViewModel()
+            {
+                ActiveCode = id
+            });
+        }
+
+
+        [HttpPost]
+        public ActionResult ResetPassword(ResetPasswordViewModel reset)
+        {
+            if (!ModelState.IsValid)
+                return View(reset);
+
+            DataLayer.Entities.User.User user = _userService.GetUserByActiveCode(reset.ActiveCode);
+
+            if (user == null)
+                return NotFound();
+
+            string hashNewPassword = PasswordHelper.EncodePasswordMd5(reset.Password);
+            user.Password = hashNewPassword;
+            _userService.UpdateUser(user);
+
+            return Redirect("/Login");
+
+        }
+        #endregion
     }
 }

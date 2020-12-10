@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MyBlog.Core.Convertors;
 using MyBlog.Core.Services;
 using MyBlog.Core.Services.Interfaces;
 using MyBlog.DataLayer.Context;
@@ -59,10 +60,10 @@ namespace MyBlog.Web
             #region IoC
 
             services.AddTransient<IUserService, UserService>();
-
+            services.AddTransient<IViewRenderService, RenderViewToString>();
             #endregion
-           
-            
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
