@@ -51,12 +51,16 @@ namespace MyBlog.Web
 
             #region Db Context
 
+
             services.AddDbContext<MyBlogContext>(options =>
-            { options.UseSqlServer("Data Source =.;Initial Catalog=MyBlog_DB;Integrated Security=true"); });
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("MyBlogConnection"));
+            }
+            );
 
             #endregion
 
-          
+
             #region IoC
 
             services.AddTransient<IUserService, UserService>();

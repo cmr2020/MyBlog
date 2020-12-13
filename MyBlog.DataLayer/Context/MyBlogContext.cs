@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyBlog.DataLayer.Entities;
 using MyBlog.DataLayer.Entities.Page;
 using MyBlog.DataLayer.Entities.PageGroup;
 using MyBlog.DataLayer.Entities.Permissions;
@@ -32,6 +33,7 @@ namespace MyBlog.DataLayer.Context
         #endregion
         public DbSet<PageGroup> PageGroups { get; set; }
         public DbSet<Page> Pages { get; set; }
+        public DbSet<About> Abouts { get; set; }
 
     }
 }
