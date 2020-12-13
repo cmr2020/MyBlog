@@ -113,9 +113,9 @@ namespace MyBlog.Web.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit( [Bind("PageID,GroupID,PageTitle,ShortDescription,PageText,PageVisit,ImageName,PageTags,ShowInSlider,CreateDate")] Page page, IFormFile imgup)
+        public async Task<IActionResult> Edit([Bind("PageID,GroupID,PageTitle,ShortDescription,PageText,PageVisit,ImageName,PageTags,ShowInSlider,CreateDate")] Page page, IFormFile imgup)
         {
-            
+
 
             if (ModelState.IsValid)
             {
@@ -139,7 +139,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
                         }
                         using (var stream = new FileStream(savePath, FileMode.Create))
                         {
-                           await imgup.CopyToAsync(stream);
+                            await imgup.CopyToAsync(stream);
                         }
 
                     }

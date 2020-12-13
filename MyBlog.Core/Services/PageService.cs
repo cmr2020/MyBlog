@@ -67,15 +67,24 @@ namespace MyBlog.Core.Services
             {
                 Imagename=p.ImageName,
                 PageTitle=p.PageTitle,
-                Grouptitle=_db.PageGroups.SingleOrDefault(c=> c.GroupID==c.GroupID).GroupTitle
+                Grouptitle=_db.PageGroups.SingleOrDefault(c=> c.GroupID==p.GroupID).GroupTitle
               
                 
             }).Take(take).ToList();
+            
         }
 
-        public IEnumerable<Page> GetLatesPage()
+        public IEnumerable<GetLatesPageViewModel> GetLatesPage()
         {
-            return _db.Pages.OrderByDescending(p => p.CreateDate).Take(4).ToList();
+            //return _db.Pages.OrderByDescending(p => p.CreateDate).Take(4).ToList();
+            return _db.Pages.OrderByDescending(p => p.CreateDate).Select(p => new GetLatesPageViewModel()
+            {
+                ImageName = p.ImageName,
+                PageTitle = p.PageTitle,
+                ShortDescription = p.ShortDescription,
+                PageGroupTitle = _db.PageGroups.SingleOrDefault(c => c.GroupID == p.GroupID).GroupTitle
+            }).Take(4).ToList();
+            
         }
 
         

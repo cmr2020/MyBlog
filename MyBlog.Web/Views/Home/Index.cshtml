@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyBlog.DataLayer.Entities.Page.Page>
+﻿@model IEnumerable<MyBlog.Core.DTOs.GetLatesPageViewModel>
 @{
     ViewData["Title"] = "صفحه اصلی";
 }
@@ -31,12 +31,12 @@
                             <div class="blog-item">
                                 <div class="post-format">
                                     <a href="#">
-                                        <img  src="/assets/images/blog-item-list-2.jpg" alt="img">
+                                        <img  src="/PageImages/@item.ImageName" alt="img">
                                     </a>
                                 </div>
                                 <div class="post-info">
                                     <div class="category-blog">
-                                        <a href="#">لوازم جانبی</a>
+                                        <a href="#">@item.PageGroupTitle</a>
                                     </div>
                                     <h3 class="post-title">
                                         <a href="#">@item.PageTitle <span>[...]</span></a>

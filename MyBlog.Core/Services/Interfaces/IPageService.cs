@@ -10,7 +10,7 @@ namespace MyBlog.Core.Services.Interfaces
     {
         IEnumerable<Page> GetAllPage();
         IEnumerable<ShowTopPageViewModel> GetTopPage(int take = 4);
-        IEnumerable<Page> GetLatesPage();
+        IEnumerable<GetLatesPageViewModel> GetLatesPage();
         Page GetPageById(int pageId);
         void InsertPage(Page page);
         void UpdatePage(Page page);
