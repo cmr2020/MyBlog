@@ -6,6 +6,7 @@ namespace MyBlog.Core.DTOs
 {
     public class GetLatesPageViewModel
     {
+        public int PageId { get; set; }
         public string ImageName { get; set; }
         public string PageGroupTitle { get; set; }
         public string PageTitle { get; set; }

@@ -63,15 +63,15 @@ namespace MyBlog.Core.Services
         public IEnumerable<ShowTopPageViewModel> GetTopPage(int take = 4)
         {
             //return _db.Pages.OrderByDescending(p => p.PageVisit).Take(take).ToList();
-            return _db.Pages.Include(p => p.PageGroup).OrderByDescending(p=> p.PageVisit).Select(p => new ShowTopPageViewModel()
+            return _db.Pages.Include(p => p.PageGroup).OrderByDescending(p => p.PageVisit).Select(p => new ShowTopPageViewModel()
             {
-                Imagename=p.ImageName,
-                PageTitle=p.PageTitle,
-                Grouptitle=_db.PageGroups.SingleOrDefault(c=> c.GroupID==p.GroupID).GroupTitle
-              
-                
+                Imagename = p.ImageName,
+                PageTitle = p.PageTitle,
+                Grouptitle = _db.PageGroups.SingleOrDefault(c => c.GroupID == p.GroupID).GroupTitle,
+                PageId = p.PageID
+
             }).Take(take).ToList();
-            
+
         }
 
         public IEnumerable<GetLatesPageViewModel> GetLatesPage()
@@ -82,11 +82,24 @@ namespace MyBlog.Core.Services
                 ImageName = p.ImageName,
                 PageTitle = p.PageTitle,
                 ShortDescription = p.ShortDescription,
-                PageGroupTitle = _db.PageGroups.SingleOrDefault(c => c.GroupID == p.GroupID).GroupTitle
+                PageGroupTitle = _db.PageGroups.SingleOrDefault(c => c.GroupID == p.GroupID).GroupTitle,
+                PageId=p.PageID
             }).Take(4).ToList();
-            
+
         }
 
-        
+        public IEnumerable<Page> GetPagesByGroupId(int groupId)
+        {
+            return _db.Pages.Where(p => p.GroupID == groupId).ToList();
+        }
+
+        public IEnumerable<Page> Search(string q)
+        {
+            var list = _db.Pages.Where(p =>
+                p.PageTitle.Contains(q) || p.ShortDescription.Contains(q) || p.PageText.Contains(q) ||
+                p.PageTags.Contains(q)).ToList();
+
+            return list.Distinct().ToList();
+        }
     }
 }

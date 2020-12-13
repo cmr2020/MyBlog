@@ -30,16 +30,16 @@
                         {
                             <div class="blog-item">
                                 <div class="post-format">
-                                    <a href="#">
-                                        <img  src="/PageImages/@item.ImageName" alt="img">
+                                    <a title="@item.PageTitle" href="#">
+                                        <img  src="/PageImages/@item.ImageName" alt="@item.PageTitle" title="@item.PageTitle">
                                     </a>
                                 </div>
                                 <div class="post-info">
                                     <div class="category-blog">
-                                        <a href="#">@item.PageGroupTitle</a>
+                                        <a title="@item.PageTitle" href="#">@item.PageGroupTitle</a>
                                     </div>
                                     <h3 class="post-title">
-                                        <a href="#">@item.PageTitle <span>[...]</span></a>
+                                        <a title="@item.PageTitle" href="/News/@item.PageId">@item.PageTitle <span>[...]</span></a>
                                     </h3>
                                     <div class="main-info-post">
                                         <p class="des">

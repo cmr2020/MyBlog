@@ -17,7 +17,7 @@
                             @foreach (var item in _groupService.GetListGroups())
                             {
                                 <li class="menu-item">
-                                    <a href="#" class="LCommerce-menu-item-title" title="اجناس جدید">@item.GroupTitle </a>
+                                    <a href="/Group/@item.GroupID/@item.GroupTitle" class="LCommerce-menu-item-title" title="اجناس جدید">@item.GroupTitle </a>
                                 </li>
                             }
 

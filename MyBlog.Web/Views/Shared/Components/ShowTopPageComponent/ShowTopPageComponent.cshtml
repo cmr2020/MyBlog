@@ -6,13 +6,13 @@
             {
                 <li class="widget-post-item">
                     <div class="thumb-blog">
-                        <img src="/PageImages/@item.Imagename" alt="img">
+                        <img src="/PageImages/@item.Imagename" alt="@item.PageTitle" title="@item.PageTitle">
                     </div>
                     <div class="post-content">
                         <div class="cat">
-                            <a href="#">@item.Grouptitle</a>
+                            <a title="@item.Grouptitle" href="#">@item.Grouptitle</a>
                         </div>
-                        <h5 class="post-title"><a href="#">@item.PageTitle <span>[...]</span></a></h5>
+                        <h5 class="post-title"><a href="/News/@item.PageId">@item.PageTitle <span>[...]</span></a></h5>
                     </div>
                 </li>
             }

@@ -1,0 +1,228 @@
+﻿@model MyBlog.DataLayer.Entities.Page.Page
+@{
+    ViewData["Title"] = Model.PageTitle;
+}
+
+    <div class="main-content main-content-blog single right-sidebar">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-trail breadcrumbs">
+                        <ul class="trail-items breadcrumb">
+                            <li class="trail-item trail-begin">
+                                <a href="index-2.html">خانه</a>
+                            </li>
+                            <li class="trail-item">
+                                <a href="#">وبلاگ ما</a>
+                            </li>
+                            <li class="trail-item trail-end active">
+                                @Model.PageTitle
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="content-area content-blog col-lg-9 col-md-8 col-sm-12 col-xs-12">
+                    <div class="site-main">
+                        <div class="post-item">
+                            <div class="post-format">
+                                @if (Model.ImageName != null)
+                                {
+                                    <a  href="#">
+                                        <img src="/PageImages/@Model.ImageName" alt="@Model.PageTitle" title="@Model.PageTitle" class="thumbnail">
+                                    </a>
+                                }
+                            </div>
+                            <div class="post-infor">
+                                <div class="category-blog">
+                                    <a href="#">سبک زندگی</a>
+                                </div>
+                                <h3 class="post-title">
+                                    <a href="#">طراح جدید مبلمان فضای باز</a>
+                                </h3>
+                                <div class="main-info-post">
+                                    <p>
+
+                                        @Model.PageText
+                                    </p>
+
+                                    <div class="author">
+                                        <span class="name">
+                                            ملیکا خلیلیان
+                                        </span>
+                                        <span class="desc">
+                                            کپی رایت خلاق
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tags tags-blog">
+                            <h3 class="widgettitle">
+                                برچسب ها:
+                            </h3>
+                            <ul class="tagcloud">
+                                @foreach (var item in Model.PageTags.Split('-'))
+                                {
+                                    <li class="tag-cloud-link">
+                                        <a  href="#">@item</a>
+                                    </li>
+                                }
+
+                            </ul>
+                        </div>
+                        <div class="view-share">
+                            <div class="author-view">
+                                <div class="author">
+                                    <div class="avt">
+                                        <img src="assets/images/avt-blog1.png" alt="img">
+                                    </div>
+                                    <h3 class="name">
+                                        علی نیازی
+                                    </h3>
+                                </div>
+                                <div class="review">
+                                    <div class="view">
+                                        <span class="icon-view">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="count">
+                                            631
+                                        </span>
+                                    </div>
+                                    <div class="s-comments">
+                                        <span class="icon-cmt">
+                                            <i class="fa fa-commenting" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="count">
+                                            82
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="share">
+                                <h3 class="title">اشتراک گذاری</h3>
+                                <i class="icon fa fa-facebook-square" aria-hidden="true"></i>
+                                <i class="icon fa fa-linkedin" aria-hidden="true"></i>
+                                <i class="icon fa fa-twitter" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="comments-area">
+                            <h3 class="custom_blog_title">
+                                نظرات <span class="count">(2)</span>
+                            </h3>
+                            <form class="comment-form">
+                                <p class="comment-reply-content">
+                                    <textarea rows="6" placeholder="دیدگاه خود را بنویسید..." class="input-form"></textarea>
+                                </p>
+                                <p class="form-submit">
+                                    <span class="controll">
+                                        <i class="icon fa fa-file-image-o" aria-hidden="true"></i>
+                                        <i class="icon fa fa-paperclip" aria-hidden="true"></i>
+                                        <i class="icon fa fa-smile-o" aria-hidden="true"></i>
+                                        <button class="submit button">نظر دهید</button>
+                                    </span>
+                                </p>
+                            </form>
+                            <ul class="comment-list">
+                                <li class="comment">
+                                    <div class="comment-item">
+                                        <div class="author-view">
+                                            <div class="author">
+                                                <div class="avt">
+                                                    <img src="assets/images/avt-blog1.png" alt="img">
+                                                </div>
+                                                <h3 class="name">
+                                                    علی نیازی
+                                                </h3>
+                                            </div>
+                                            <div class="date-reply-comment">
+                                                <span class="date-comment">
+                                                    4 روز پیش
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="comment-body">
+                                            <div class="comment-content">
+                                                <p>
+                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف
+                                                </p>
+                                            </div>
+                                            <div class="comment-reply-link">
+                                                <span class="Comment">
+                                                    <i class="icon fa fa-commenting" aria-hidden="true"></i>
+                                                    نظر
+                                                </span>
+                                                <span class="like">
+                                                    <i class="icon fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                    1
+                                                </span>
+                                                <span class="dislike">
+                                                    <i class="icon fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul class="children">
+                                        <li>
+                                            <div class="comment-item">
+                                                <div class="author-view">
+                                                    <div class="author">
+                                                        <div class="avt">
+                                                            <img src="assets/images/avt-blog1.png" alt="img">
+                                                        </div>
+                                                        <h3 class="name">
+                                                            ملیکا خلیلیان
+                                                        </h3>
+                                                    </div>
+                                                    <div class="date-reply-comment">
+                                                        <span class="date-comment">
+                                                            4 روز پیش
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-body">
+                                                    <div class="comment-content">
+                                                        <p>
+                                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف
+                                                        </p>
+                                                    </div>
+                                                    <div class="comment-reply-link">
+                                                        <span class="Comment">
+                                                            <i class="fa fa-commenting" aria-hidden="true"></i>
+                                                            نظر
+                                                        </span>
+                                                        <span class="like">
+                                                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                            9
+                                                        </span>
+                                                        <span class="dislike">
+                                                            <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                                            1
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pagination clearfix style1">
+                            <div class="nav-link">
+                                <a href="#" class="page-numbers"><i class="icon fa fa-angle-right" aria-hidden="true"></i></a>
+                                <a href="#" class="page-numbers">1</a>
+                                <a href="#" class="page-numbers">2</a>
+                                <a href="#" class="page-numbers current">3</a>
+                                <a href="#" class="page-numbers"><i class="icon fa fa-angle-left" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>

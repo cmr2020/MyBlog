@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MyBlog.Core.Security;
 using MyBlog.Core.Services.Interfaces;
 using MyBlog.DataLayer.Context;
 using MyBlog.DataLayer.Entities.Page;
 
 namespace MyBlog.Web.Areas.Admin.Controllers
 {
+    [PermissionChecker(1)]
     [Area("Admin")]
     public class PagesController : Controller
     {

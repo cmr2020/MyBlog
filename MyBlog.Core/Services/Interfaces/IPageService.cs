@@ -11,6 +11,8 @@ namespace MyBlog.Core.Services.Interfaces
         IEnumerable<Page> GetAllPage();
         IEnumerable<ShowTopPageViewModel> GetTopPage(int take = 4);
         IEnumerable<GetLatesPageViewModel> GetLatesPage();
+        IEnumerable<Page> GetPagesByGroupId(int groupId);
+        IEnumerable<Page> Search(string q);
         Page GetPageById(int pageId);
         void InsertPage(Page page);
         void UpdatePage(Page page);

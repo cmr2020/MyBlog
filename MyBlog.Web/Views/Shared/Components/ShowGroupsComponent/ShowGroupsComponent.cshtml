@@ -4,12 +4,13 @@
         <ul class="list-categories">
             @foreach (var item in Model)
             {
-                <li>
-                    <span>@item.PageCount</span>
-                    <label for="cb1" class="label-text">
-                        @item.GroupTitle
-                    </label>
-                </li>
+              
+                   
+            <li>
+                <span>@item.PageCount</span>
+                <a href="/Group/@item.GroupID/@item.GroupTitle" class="LCommerce-menu-item-title" title="اجناس جدید">@item.GroupTitle </a>
+            </li>
+             
             }
 
         </ul>

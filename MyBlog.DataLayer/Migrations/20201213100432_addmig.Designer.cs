@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBlog.DataLayer.Context;
 
 namespace MyBlog.DataLayer.Migrations
 {
     [DbContext(typeof(MyBlogContext))]
-    partial class MyBlogContextModelSnapshot : ModelSnapshot
+    [Migration("20201213100432_addmig")]
+    partial class addmig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,50 +85,6 @@ namespace MyBlog.DataLayer.Migrations
                     b.HasKey("GroupID");
 
                     b.ToTable("PageGroups");
-                });
-
-            modelBuilder.Entity("MyBlog.DataLayer.Entities.Permissions.Permission", b =>
-                {
-                    b.Property<int>("PermissionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int?>("ParentID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PermissionTitle")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("PermissionId");
-
-                    b.HasIndex("ParentID");
-
-                    b.ToTable("Permission");
-                });
-
-            modelBuilder.Entity("MyBlog.DataLayer.Entities.Permissions.RolePermission", b =>
-                {
-                    b.Property<int>("RP_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("PermissionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RP_Id");
-
-                    b.HasIndex("PermissionId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("RolePermission");
                 });
 
             modelBuilder.Entity("MyBlog.DataLayer.Entities.User.Role", b =>
@@ -218,32 +176,6 @@ namespace MyBlog.DataLayer.Migrations
                     b.Navigation("PageGroup");
                 });
 
-            modelBuilder.Entity("MyBlog.DataLayer.Entities.Permissions.Permission", b =>
-                {
-                    b.HasOne("MyBlog.DataLayer.Entities.Permissions.Permission", null)
-                        .WithMany("Permissions")
-                        .HasForeignKey("ParentID");
-                });
-
-            modelBuilder.Entity("MyBlog.DataLayer.Entities.Permissions.RolePermission", b =>
-                {
-                    b.HasOne("MyBlog.DataLayer.Entities.Permissions.Permission", "Permission")
-                        .WithMany("RolePermissions")
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyBlog.DataLayer.Entities.User.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Permission");
-
-                    b.Navigation("Role");
-                });
-
             modelBuilder.Entity("MyBlog.DataLayer.Entities.User.UserRole", b =>
                 {
                     b.HasOne("MyBlog.DataLayer.Entities.User.Role", "Role")
@@ -266,13 +198,6 @@ namespace MyBlog.DataLayer.Migrations
             modelBuilder.Entity("MyBlog.DataLayer.Entities.PageGroup.PageGroup", b =>
                 {
                     b.Navigation("Pages");
-                });
-
-            modelBuilder.Entity("MyBlog.DataLayer.Entities.Permissions.Permission", b =>
-                {
-                    b.Navigation("Permissions");
-
-                    b.Navigation("RolePermissions");
                 });
 
             modelBuilder.Entity("MyBlog.DataLayer.Entities.User.Role", b =>

@@ -5,15 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MyBlog.Core.Security;
 using MyBlog.Core.Services.Interfaces;
 using MyBlog.DataLayer.Context;
 using MyBlog.DataLayer.Entities.PageGroup;
 
 namespace MyBlog.Web.Areas.Admin.Controllers
 {
+    [PermissionChecker(1)]
     [Area("Admin")]
     public class PageGroupsController : Controller
     {
+       
         private IPageGroupService _pageGroupRepository;
 
         public PageGroupsController(IPageGroupService pageGroupRepository)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyBlog.DataLayer.Entities.Page;
 using MyBlog.DataLayer.Entities.PageGroup;
+using MyBlog.DataLayer.Entities.Permissions;
 using MyBlog.DataLayer.Entities.User;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,12 @@ namespace MyBlog.DataLayer.Context
 
 
         #endregion
+        #region Permission
 
+        public DbSet<Permission> Permission { get; set; }
+        public DbSet<RolePermission> RolePermission { get; set; }
+
+        #endregion
         public DbSet<PageGroup> PageGroups { get; set; }
         public DbSet<Page> Pages { get; set; }
 
