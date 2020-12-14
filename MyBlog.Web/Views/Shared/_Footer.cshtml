@@ -1,25 +1,19 @@
-﻿<footer class="footer style7">
+﻿@using MyBlog.Core.Services.Interfaces
+@inject IPageGroupService _groupService
+<footer class="footer style7">
     <div class="container">
         <div class="container-wapper">
             <div class="row">
                 <div class="box-footer col-xs-12 col-sm-6 col-md-6 col-lg-4">
                     <div class="widget-box">
-                        <div class="single-img">
-                            <a href="index.html"><img src="/assets/images/logo.png" alt="img"></a>
-                        </div>
+
                         <ul class="menu">
+
+
                             <li class="menu-item">
-                                <a href="#"><span class="flaticon-placeholder"></span>ایران ،سمنان، شاهرود ، فروشگاه لکامرس</a>
+                                <a href="#"><span class="fa fa-envelope-o"></span>Rezanabhani387@gmail.com</a>
                             </li>
-                            <li class="menu-item">
-                                <a href="#"><span class="flaticon-phone-call"></span>09107195382 - 09107195382 </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#"><span class="fa fa-envelope-o"></span>example@gmail.com</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#"><span class="flaticon-clock"></span>شنبه تا پنجشنبه از ساعت 0.6:00 تا 23:00</a>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -27,21 +21,15 @@
                     <div class="LCommerce-custommenu default">
                         <h2 class="widgettitle">منوی سریع</h2>
                         <ul class="menu">
-                            <li class="menu-item">
-                                <a href="#">صوتی و تئاتر</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#">عکس و فیلم</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#">هدفون ها</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#">بلندگوهای بی سیم</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#">الکترونیک</a>
-                            </li>
+                            @foreach (var item in _groupService.GetListGroups())
+                            {
+
+
+                                <li class="menu-item">
+                                    <a href="/Group/@item.GroupID/@item.GroupTitle">@item.GroupTitle</a>
+                                </li>
+                            }
+
                         </ul>
                     </div>
                 </div>
@@ -111,10 +99,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         <div class="coppyright">
-                            © 1399
-                            تمامی حقوق برای،
-                            <a href="#">ملیکا خلیلیان</a>
-                            محفوظ است.
+                            تمامی حقوق مادی و معنوی این سایت متعلق به برنامه نویس یار می باشد و هرگونه کپی برداری غیرقانونی محسوب خواهد شد
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
