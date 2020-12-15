@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label"></label>
-                <textarea asp-for="PageText"  rows="15" class="form-control"></textarea>
+                <textarea asp-for="PageText" rows="15" class="form-control"></textarea>
                 <span asp-validation-for="PageText" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -69,6 +69,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+
     <script>
 
         CKEDITOR.replace('PageText', {

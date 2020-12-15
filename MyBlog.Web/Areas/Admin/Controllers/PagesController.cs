@@ -170,7 +170,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return  NotFound();
             }
 
             var page = _pageRepoitory.GetPageById(id.Value);
