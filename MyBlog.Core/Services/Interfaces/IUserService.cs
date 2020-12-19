@@ -16,5 +16,13 @@ namespace MyBlog.Core.Services.Interfaces
         User GetUserByActiveCode(string activeCode);
         void UpdateUser(User user);
         bool ActiveAccount(string activeCode);
+
+
+        #region Admin Panel
+
+        UserForAdminViewModel GetUsers(int pageId = 1, string filterEmail = "", string filterUserName = "");
+
+
+        #endregion
     }
 }

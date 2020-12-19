@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyBlog.Core.Security;
 using MyBlog.Core.Services.Interfaces;
-using MyBlog.DataLayer.Context;
 using MyBlog.DataLayer.Entities.Page;
 
 namespace MyBlog.Web.Areas.Admin.Controllers
@@ -18,53 +17,47 @@ namespace MyBlog.Web.Areas.Admin.Controllers
     [Area("Admin")]
     public class PagesController : Controller
     {
-        private IPageService _pageRepoitory;
-        private IPageGroupService _pageGroupRepository;
-
-        public PagesController(IPageService pageRepoitory, IPageGroupService pageGroupRepository)
+        private IPageService _pageService;
+        private IPageGroupService _pageGroupService;
+        public PagesController(IPageService pageService, IPageGroupService pageGroupService)
         {
-            _pageRepoitory = pageRepoitory;
-            _pageGroupRepository = pageGroupRepository;
+            _pageService = pageService;
+            _pageGroupService = pageGroupService;
+        }
+        public IActionResult Index()
+        {
+            return View(_pageService.GetAllPage());
         }
 
 
-        // GET: Admin/Pages
-        public async Task<IActionResult> Index()
-        {
-            var myCmsDbContext = _pageRepoitory.GetAllPage();
-            return View(myCmsDbContext);
-        }
-
-        // GET: Admin/Pages/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var page = _pageRepoitory.GetPageById(id.Value);
+            var page = _pageService.GetPagesByGroupId(id.Value);
+
             if (page == null)
             {
                 return NotFound();
             }
 
             return View(page);
+
         }
 
-        // GET: Admin/Pages/Create
+
         public IActionResult Create()
         {
-            ViewData["GroupID"] = new SelectList(_pageGroupRepository.GetAllPageGroups(), "GroupID", "GroupTitle");
+            ViewData["GroupID"] = new SelectList(_pageGroupService.GetAllPageGroups(), "GroupID", "GroupTitle");
             return View();
         }
 
-        // POST: Admin/Pages/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PageID,GroupID,PageTitle,ShortDescription,PageText,PageVisit,ImageName,PageTags,ShowInSlider,CreateDate")] Page page, IFormFile imgup)
+        public IActionResult Create([Bind("PageID,GroupID,PageTitle,ShortDescription,PageText,PageVisit,ImageName,PageTags,ShowInSlider,CreateDate")] Page page, IFormFile imgup)
         {
             if (ModelState.IsValid)
             {
@@ -85,28 +78,28 @@ namespace MyBlog.Web.Areas.Admin.Controllers
 
                 }
 
-                _pageRepoitory.InsertPage(page);
-                _pageRepoitory.Save();
+                _pageService.InsertPage(page);
+                _pageService.Save();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GroupID"] = new SelectList(_pageGroupRepository.GetAllPageGroups(), "GroupID", "GroupTitle", page.GroupID);
+            ViewData["GroupID"] = new SelectList(_pageGroupService.GetAllPageGroups(), "GroupID", "GroupTitle", page.GroupID);
             return View(page);
         }
 
-        // GET: Admin/Pages/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+
+        public  IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var page = _pageRepoitory.GetPageById(id.Value);
+            var page = _pageService.GetPageById(id.Value);
             if (page == null)
             {
                 return NotFound();
             }
-            ViewData["GroupID"] = new SelectList(_pageGroupRepository.GetAllPageGroups(), "GroupID", "GroupTitle", page.GroupID);
+            ViewData["GroupID"] = new SelectList(_pageGroupService.GetAllPageGroups(), "GroupID", "GroupTitle", page.GroupID);
             return View(page);
         }
 
@@ -115,7 +108,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("PageID,GroupID,PageTitle,ShortDescription,PageText,PageVisit,ImageName,PageTags,ShowInSlider,CreateDate")] Page page, IFormFile imgup)
+        public IActionResult Edit([Bind("PageID,GroupID,PageTitle,ShortDescription,PageText,PageVisit,ImageName,PageTags,ShowInSlider,CreateDate")] Page page, IFormFile imgup)
         {
 
 
@@ -141,12 +134,12 @@ namespace MyBlog.Web.Areas.Admin.Controllers
                         }
                         using (var stream = new FileStream(savePath, FileMode.Create))
                         {
-                            await imgup.CopyToAsync(stream);
+                             imgup.CopyToAsync(stream);
                         }
 
                     }
-                    _pageRepoitory.UpdatePage(page);
-                    _pageRepoitory.Save();
+                    _pageService.UpdatePage(page);
+                    _pageService.Save();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -161,19 +154,19 @@ namespace MyBlog.Web.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GroupID"] = new SelectList(_pageGroupRepository.GetAllPageGroups(), "GroupID", "GroupTitle", page.GroupID);
+            ViewData["GroupID"] = new SelectList(_pageGroupService.GetAllPageGroups(), "GroupID", "GroupTitle", page.GroupID);
             return View(page);
         }
 
-        // GET: Admin/Pages/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return  NotFound();
+                return NotFound();
             }
 
-            var page = _pageRepoitory.GetPageById(id.Value);
+            var page = _pageService.GetPageById(id.Value);
             if (page == null)
             {
                 return NotFound();
@@ -182,19 +175,19 @@ namespace MyBlog.Web.Areas.Admin.Controllers
             return View(page);
         }
 
-        // POST: Admin/Pages/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Page pages)
+        public IActionResult DeleteConfirmed(Page page)
         {
-            _pageRepoitory.DeletePage(pages);
-            _pageRepoitory.Save();
-            return RedirectToAction(nameof(Index));
+            _pageService.DeletePage(page);
+            _pageService.Save();
+            return RedirectToAction("Index");
         }
 
         private bool PageExists(int id)
         {
-            return _pageRepoitory.PageExists(id);
+            return _pageService.PageExists(id);
         }
     }
 }
