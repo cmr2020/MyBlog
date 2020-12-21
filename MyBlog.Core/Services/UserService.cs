@@ -7,6 +7,7 @@ using MyBlog.DataLayer.Context;
 using MyBlog.DataLayer.Entities.User;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -101,6 +102,35 @@ namespace MyBlog.Core.Services
             list.Users = result.OrderBy(u => u.RegisterDate).Skip(skip).Take(take).ToList();
 
             return list;
+        }
+
+        public int AddUserFromAdmin(CreateUserViewModel user)
+        {
+            User addUser = new User();
+            addUser.Password = PasswordHelper.EncodePasswordMd5(user.Password);
+            addUser.ActiveCode = NameGenerator.GenerateUniqCode();
+            addUser.Email = user.Email;
+            addUser.IsActive = true;
+            addUser.RegisterDate = DateTime.Now;
+            addUser.UserName = user.UserName;
+
+            #region Save Avatar
+
+            if (user.UserAvatar != null)
+            {
+                string imagePath = "";
+                addUser.UserAvatar = NameGenerator.GenerateUniqCode() + Path.GetExtension(user.UserAvatar.FileName);
+                imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UserAvatar", addUser.UserAvatar);
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    user.UserAvatar.CopyTo(stream);
+                }
+            }
+
+            #endregion
+
+            return AddUser(addUser);
+
         }
     }
 }

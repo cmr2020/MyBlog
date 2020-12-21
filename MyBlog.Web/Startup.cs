@@ -67,6 +67,7 @@ namespace MyBlog.Web
             services.AddTransient<IViewRenderService, RenderViewToString>();
             services.AddTransient<IPageService, PageService>();
             services.AddTransient<IPageGroupService, PageGroupService>();
+            services.AddTransient<IPermissionService, PermissionService>();
             #endregion
 
 

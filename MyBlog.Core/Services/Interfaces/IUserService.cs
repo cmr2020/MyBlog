@@ -21,7 +21,7 @@ namespace MyBlog.Core.Services.Interfaces
         #region Admin Panel
 
         UserForAdminViewModel GetUsers(int pageId = 1, string filterEmail = "", string filterUserName = "");
-
+        int AddUserFromAdmin(CreateUserViewModel user);
 
         #endregion
     }

@@ -12,9 +12,11 @@ namespace MyBlog.Web.Areas.Admin.Controllers
     public class ManageUserController : Controller
     {
         private IUserService _userService;
-        public ManageUserController(IUserService userService)
+        IPermissionService _permissionService;
+        public ManageUserController(IUserService userService, IPermissionService permissionService)
         {
             _userService = userService;
+            _permissionService = permissionService;
         }
 
 
@@ -26,7 +28,29 @@ namespace MyBlog.Web.Areas.Admin.Controllers
             return View(_userService.GetUsers(pageId, filterEmail, filterUserName));
         }
 
-       
+        [BindProperty]
+        public CreateUserViewModel CreateUserViewModel { get; set; }
+        public IActionResult CreateUser()
+        {
+            ViewData["Roles"] = _permissionService.GetRoles();
+            return View();
+        }
 
-    }
+        [HttpPost]
+        public IActionResult CreateUser(List<int> SelectedRoles) 
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            int userId = _userService.AddUserFromAdmin(CreateUserViewModel);
+
+
+            //Add Roles
+            _permissionService.AddRolesToUser(SelectedRoles, userId);
+
+
+
+            return RedirectToAction("index");
+        }
+        }
 }
