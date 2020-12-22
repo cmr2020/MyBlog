@@ -13,6 +13,7 @@ namespace MyBlog.Core.Services.Interfaces
         int AddUser(User user);
         User LoginUser(LoginViewModel login);
         User GetUserByEmail(string email);
+        User GetUserById(int userId);
         User GetUserByActiveCode(string activeCode);
         void UpdateUser(User user);
         bool ActiveAccount(string activeCode);
@@ -22,7 +23,8 @@ namespace MyBlog.Core.Services.Interfaces
 
         UserForAdminViewModel GetUsers(int pageId = 1, string filterEmail = "", string filterUserName = "");
         int AddUserFromAdmin(CreateUserViewModel user);
-
+        EditUserViewModel GetUserForShowInEditMode(int userId);
+        void EditUserFormAdmin(EditUserViewModel editUser);
         #endregion
     }
 }

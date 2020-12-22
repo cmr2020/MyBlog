@@ -21,15 +21,15 @@ namespace MyBlog.Web.Areas.Admin.Controllers
 
 
 
-      
+
         public IActionResult Index(int pageId = 1, string filterUserName = "", string filterEmail = "")
         {
-            
+
             return View(_userService.GetUsers(pageId, filterEmail, filterUserName));
         }
 
-        [BindProperty]
-        public CreateUserViewModel CreateUserViewModel { get; set; }
+
+
         public IActionResult CreateUser()
         {
             ViewData["Roles"] = _permissionService.GetRoles();
@@ -37,12 +37,12 @@ namespace MyBlog.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUser(List<int> SelectedRoles) 
+        public IActionResult CreateUser(List<int> SelectedRoles, CreateUserViewModel createUserViewModel)
         {
             if (!ModelState.IsValid)
                 return View();
 
-            int userId = _userService.AddUserFromAdmin(CreateUserViewModel);
+            int userId = _userService.AddUserFromAdmin(createUserViewModel);
 
 
             //Add Roles
@@ -52,5 +52,36 @@ namespace MyBlog.Web.Areas.Admin.Controllers
 
             return RedirectToAction("index");
         }
+
+
+
+
+        public IActionResult EditUser(int id)
+        {
+            var edituser = _userService.GetUserForShowInEditMode(id);
+            ViewData["Roles"] = _permissionService.GetRoles();
+            return View(edituser);
         }
+
+        [HttpPost]
+        public IActionResult EditUser(List<int> SelectedRoles,EditUserViewModel editUserViewModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            _userService.EditUserFormAdmin(editUserViewModel);
+
+            //Edit Roles
+            _permissionService.EditRolesUser(editUserViewModel.UserId, SelectedRoles);
+
+
+           return RedirectToAction("Index");
+
+            
+        }
+
+
+    }
 }

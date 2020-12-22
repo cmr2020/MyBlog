@@ -53,7 +53,11 @@ namespace MyBlog.Core.Services
 
         public void EditRolesUser(int userId, List<int> rolesId)
         {
-            throw new NotImplementedException();
+            //Delete All Roles User
+            _db.UserRoles.Where(r => r.UserId == userId).ToList().ForEach(r => _db.UserRoles.Remove(r));
+
+            //Add New Roles
+            AddRolesToUser(rolesId,userId);
         }
 
         public List<Permission> GetAllPermission()
