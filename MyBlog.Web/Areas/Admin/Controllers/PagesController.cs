@@ -49,15 +49,19 @@ namespace MyBlog.Web.Areas.Admin.Controllers
         }
 
 
+        // GET: Admin/Pages/Create
         public IActionResult Create()
         {
             ViewData["GroupID"] = new SelectList(_pageGroupService.GetAllPageGroups(), "GroupID", "GroupTitle");
             return View();
         }
 
+        // POST: Admin/Pages/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("PageID,GroupID,PageTitle,ShortDescription,PageText,PageVisit,ImageName,PageTags,ShowInSlider,CreateDate")] Page page, IFormFile imgup)
+        public async Task<IActionResult> Create([Bind("PageID,GroupID,PageTitle,ShortDescription,PageText,PageVisit,ImageName,PageTags,ShowInSlider,CreateDate")] Page page, IFormFile imgup)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +91,8 @@ namespace MyBlog.Web.Areas.Admin.Controllers
         }
 
 
-        public  IActionResult Edit(int? id)
+        // GET: Admin/Pages/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -108,7 +113,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([Bind("PageID,GroupID,PageTitle,ShortDescription,PageText,PageVisit,ImageName,PageTags,ShowInSlider,CreateDate")] Page page, IFormFile imgup)
+        public async Task<IActionResult> Edit([Bind("PageID,GroupID,PageTitle,ShortDescription,PageText,PageVisit,ImageName,PageTags,ShowInSlider,CreateDate")] Page page, IFormFile imgup)
         {
 
 
@@ -134,7 +139,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
                         }
                         using (var stream = new FileStream(savePath, FileMode.Create))
                         {
-                             imgup.CopyToAsync(stream);
+                            await imgup.CopyToAsync(stream);
                         }
 
                     }
