@@ -35,5 +35,14 @@ namespace MyBlog.DataLayer.Context
         public DbSet<Page> Pages { get; set; }
         public DbSet<About> Abouts { get; set; }
 
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasQueryFilter(u => !u.IsDelete);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }

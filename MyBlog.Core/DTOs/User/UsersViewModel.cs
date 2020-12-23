@@ -60,4 +60,12 @@ namespace MyBlog.Core.DTOs
         public string AvatarName { get; set; }
     }
 
+    public class InformationUserViewModel
+    {
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public DateTime RegisterDate { get; set; }
+       
+    }
+
 }

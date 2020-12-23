@@ -64,9 +64,9 @@ namespace MyBlog.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditUser(List<int> SelectedRoles,EditUserViewModel editUserViewModel)
+        public IActionResult EditUser(List<int> SelectedRoles, EditUserViewModel editUserViewModel)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View();
             }
@@ -77,11 +77,30 @@ namespace MyBlog.Web.Areas.Admin.Controllers
             _permissionService.EditRolesUser(editUserViewModel.UserId, SelectedRoles);
 
 
-           return RedirectToAction("Index");
+            return RedirectToAction("Index");
 
-            
+
         }
 
 
+        public IActionResult ListDeleteUsers(int pageId = 1, string filterUserName = "", string filterEmail = "")
+        {
+            return View(_userService.GetDeleteUsers(pageId, filterEmail, filterUserName));
+        }
+
+        public IActionResult DeleteUser(int id)
+        {
+            ViewData["UserId"] = id;
+            var deleteUser = _userService.GetUserInformation(id);
+            return View(deleteUser);
+        }
+
+
+        [HttpPost]
+        public IActionResult DeleteUser(int Userid,InformationUserViewModel informationUserViewModel)
+        {
+            _userService.DeleteUser(Userid);
+            return RedirectToAction("Index");
+        }
     }
 }

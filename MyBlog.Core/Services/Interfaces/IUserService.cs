@@ -17,11 +17,14 @@ namespace MyBlog.Core.Services.Interfaces
         User GetUserByActiveCode(string activeCode);
         void UpdateUser(User user);
         bool ActiveAccount(string activeCode);
+        void DeleteUser(int userId);
+
 
 
         #region Admin Panel
-
+        InformationUserViewModel GetUserInformation(int userId);
         UserForAdminViewModel GetUsers(int pageId = 1, string filterEmail = "", string filterUserName = "");
+        UserForAdminViewModel GetDeleteUsers(int pageId = 1, string filterEmail = "", string filterUserName = "");
         int AddUserFromAdmin(CreateUserViewModel user);
         EditUserViewModel GetUserForShowInEditMode(int userId);
         void EditUserFormAdmin(EditUserViewModel editUser);
