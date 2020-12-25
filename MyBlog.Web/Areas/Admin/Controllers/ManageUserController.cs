@@ -102,5 +102,15 @@ namespace MyBlog.Web.Areas.Admin.Controllers
             _userService.DeleteUser(Userid);
             return RedirectToAction("Index");
         }
+
+
+        public IActionResult PanelAdmin()
+        {
+            return View();
+        }
+
+       
+
+
     }
 }
