@@ -80,11 +80,20 @@ namespace MyBlog.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.Use(async (context, next) =>
+            {
+                await next();
+                if (context.Response.StatusCode == 404)
+                {
+                    context.Request.Path = "/Home/Err404";
+                    await next();
+                }
+            });
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {
