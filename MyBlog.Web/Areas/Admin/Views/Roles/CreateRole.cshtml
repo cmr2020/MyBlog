@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyBlog.DataLayer.Entities.User.Role>
+﻿@model MyBlog.Core.DTOs.Role.CreateRoleViewModel
 @{
     ViewData["Title"] = "CreateRole";
 }
@@ -16,19 +16,14 @@
         <div class="col-md-8">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    اطلاعات کاربر
+                    نقش
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    @foreach (var item in Model)
-                    {
                     <div class="form-group">
-                        <label>نام کاربری</label>
-                        <input type="text" asp-for="@item.RoleTitle" class="form-control">
+                        <label>عنوان نقش</label>
+                        <input type="text" asp-for="@Model.RoleTitle" class="form-control">
                     </div>
-                    }
-                   
-                  
                     <input type="submit" value="ذخیره اطلاعات" class="btn btn-success" />
                 </div>
                 <!-- /.panel-body -->
@@ -37,16 +32,48 @@
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                 سطح دسترسی ها
+                    دسترسی های نقش
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                   
+                    <ul>
+                        @foreach (var permission in Model.SelectedPermission.Where(p => p.ParentID == null))
+                        {
+                            <li>
+                                <input type="checkbox" name="SelectedPermission" value="@permission.PermissionId" /> @permission.PermissionTitle
+
+                                @if (Model.SelectedPermission.Any(p => p.ParentID == permission.ParentID))
+                                {
+                                    <ul>
+                                        @foreach (var sub in Model.SelectedPermission.Where(p => p.ParentID == permission.PermissionId))
+                                        {
+                                            <li>
+                                                <input type="checkbox" name="SelectedPermission" value="@sub.PermissionId" /> @sub.PermissionTitle
+                                                @if (Model.SelectedPermission.Any(p => p.ParentID == sub.ParentID))
+                                                {
+                                                    <ul>
+
+                                                        @foreach (var sub2 in Model.SelectedPermission.Where(p => p.ParentID == sub.PermissionId))
+                                                        {
+                                                            <li>
+                                                                <input type="checkbox" name="SelectedPermission" value="@sub2.PermissionId" /> @sub2.PermissionTitle
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                }
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </li>
+                        }
+                    </ul>
                 </div>
                 <!-- /.panel-body -->
             </div>
 
         </div>
+
 
     </form>
 </div>

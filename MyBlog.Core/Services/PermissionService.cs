@@ -47,16 +47,13 @@ namespace MyBlog.Core.Services
             throw new NotImplementedException();
         }
 
-        //public CreateRoleViewModel CreateRole()
-        //{
-        //    CreateRoleViewModel createRoleViewModel = new CreateRoleViewModel();
+        public CreateRoleViewModel GetPermissionRoleViewModel()
+        {
+            return new CreateRoleViewModel() {
+                SelectedPermission = GetAllPermission()
+            };
 
-        //    createRoleViewModel.SelectedPermission = GetAllPermission();
-
-
-
-        //    return createRoleViewModel;‏‏
-        //}
+        }
 
         public void DeleteRole(Role role)
         {

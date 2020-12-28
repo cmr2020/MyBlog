@@ -24,6 +24,7 @@ namespace MyBlog.Core.Services.Interfaces
         #region Permission
 
         List<Permission> GetAllPermission();
+        CreateRoleViewModel GetPermissionRoleViewModel();
         void AddPermissionsToRole(int roleId, List<int> permission);
         List<int> PermissionsRole(int roleId);
         void UpdatePermissionsRole(int roleId, List<int> permissions);
