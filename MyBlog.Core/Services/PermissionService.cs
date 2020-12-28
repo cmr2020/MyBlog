@@ -1,4 +1,5 @@
-﻿using MyBlog.Core.Services.Interfaces;
+﻿using MyBlog.Core.DTOs.Role;
+using MyBlog.Core.Services.Interfaces;
 using MyBlog.DataLayer.Context;
 using MyBlog.DataLayer.Entities.Permissions;
 using MyBlog.DataLayer.Entities.User;
@@ -46,6 +47,17 @@ namespace MyBlog.Core.Services
             throw new NotImplementedException();
         }
 
+        //public CreateRoleViewModel CreateRole()
+        //{
+        //    CreateRoleViewModel createRoleViewModel = new CreateRoleViewModel();
+
+        //    createRoleViewModel.SelectedPermission = GetAllPermission();
+
+
+
+        //    return createRoleViewModel;‏‏
+        //}
+
         public void DeleteRole(Role role)
         {
             throw new NotImplementedException();
@@ -57,7 +69,7 @@ namespace MyBlog.Core.Services
             _db.UserRoles.Where(r => r.UserId == userId).ToList().ForEach(r => _db.UserRoles.Remove(r));
 
             //Add New Roles
-            AddRolesToUser(rolesId,userId);
+            AddRolesToUser(rolesId, userId);
         }
 
         public List<Permission> GetAllPermission()

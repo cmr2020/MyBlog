@@ -1,4 +1,5 @@
-﻿using MyBlog.DataLayer.Entities.Permissions;
+﻿using MyBlog.Core.DTOs.Role;
+using MyBlog.DataLayer.Entities.Permissions;
 using MyBlog.DataLayer.Entities.User;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,9 @@ namespace MyBlog.Core.Services.Interfaces
         void UpdatePermissionsRole(int roleId, List<int> permissions);
 
         bool CheckPermission(int permissionId, string userName);
-
+        //CreateRoleViewModel CreateRole();
+        
+       
         #endregion
     }
 }
