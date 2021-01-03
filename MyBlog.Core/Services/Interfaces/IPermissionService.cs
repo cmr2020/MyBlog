@@ -18,6 +18,7 @@ namespace MyBlog.Core.Services.Interfaces
         void DeleteRole(Role role);
         void AddRolesToUser(List<int> roleIds, int userId);
         void EditRolesUser(int userId, List<int> rolesId);
+        EditRoleViewModel GetRoleViewModel(int id);
 
         #endregion
 
@@ -31,8 +32,8 @@ namespace MyBlog.Core.Services.Interfaces
 
         bool CheckPermission(int permissionId, string userName);
         //CreateRoleViewModel CreateRole();
-        
-       
+
+
         #endregion
     }
 }

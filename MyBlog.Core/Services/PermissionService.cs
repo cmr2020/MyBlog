@@ -20,12 +20,23 @@ namespace MyBlog.Core.Services
         }
         public void AddPermissionsToRole(int roleId, List<int> permission)
         {
-            throw new NotImplementedException();
+            foreach (var p in permission)
+            {
+                _db.RolePermission.Add(new RolePermission()
+                {
+                    PermissionId = p,
+                    RoleId = roleId
+                });
+            }
+
+            _db.SaveChanges();
         }
 
         public int AddRole(Role role)
         {
-            throw new NotImplementedException();
+            _db.Roles.Add(role);
+            _db.SaveChanges();
+            return role.RoleId;
         }
 
         public void AddRolesToUser(List<int> roleIds, int userId)
@@ -49,7 +60,8 @@ namespace MyBlog.Core.Services
 
         public CreateRoleViewModel GetPermissionRoleViewModel()
         {
-            return new CreateRoleViewModel() {
+            return new CreateRoleViewModel()
+            {
                 SelectedPermission = GetAllPermission()
             };
 
@@ -57,7 +69,9 @@ namespace MyBlog.Core.Services
 
         public void DeleteRole(Role role)
         {
-            throw new NotImplementedException();
+            role.IsDelete = true;
+            UpdateRole(role);
+
         }
 
         public void EditRolesUser(int userId, List<int> rolesId)
@@ -71,12 +85,12 @@ namespace MyBlog.Core.Services
 
         public List<Permission> GetAllPermission()
         {
-            throw new NotImplementedException();
+            return _db.Permission.ToList();
         }
 
         public Role GetRoleById(int roleId)
         {
-            throw new NotImplementedException();
+            return _db.Roles.Find(roleId);
         }
 
         public List<Role> GetRoles()
@@ -96,7 +110,25 @@ namespace MyBlog.Core.Services
 
         public void UpdateRole(Role role)
         {
-            throw new NotImplementedException();
+            _db.Roles.Update(role);
+            _db.SaveChanges();
         }
+
+        public EditRoleViewModel GetRoleViewModel(int roleid)
+        {
+            return new EditRoleViewModel()
+            {
+                RoleId = roleid,
+                RoleTitle = GetRoleById(roleid).RoleTitle,
+                IsDelete=GetRoleById(roleid).IsDelete,
+                SelectedPermission = GetAllPermission()
+
+
+            };
+
+
+        }
+
     }
 }
+

@@ -46,7 +46,60 @@ namespace MyBlog.Web.Areas.Admin.Controllers
             List<int> selectedPermission = model.SelectedPermission.Select(p => p.PermissionId).ToList();
             _permissionService.AddPermissionsToRole(roleId,selectedPermission );
 
-            return RedirectToPage("Index");
+            return RedirectToAction("Index");
         }
+
+
+        public IActionResult EditRole(int id)
+        {
+            return View(_permissionService.GetRoleViewModel(id));
+        }
+
+        [HttpPost]
+        public IActionResult EditRole(EditRoleViewModel editRoleViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View();
+            Role role = new Role()
+            {
+                RoleId=editRoleViewModel.RoleId,
+
+                IsDelete = false,
+                RoleTitle = editRoleViewModel.RoleTitle
+            };
+
+            _permissionService.UpdateRole(role);
+
+            //TODO Add Permission
+
+            return RedirectToAction("Index");
+        }
+
+
+        public IActionResult DeleteRole(int id)
+        {
+            return View(_permissionService.GetRoleViewModel(id));
+        }
+
+
+        [HttpPost]
+        public IActionResult DeleteRole(EditRoleViewModel editRoleViewModel)
+        {
+
+            Role role = new Role()
+            {
+                RoleId = editRoleViewModel.RoleId,
+
+                IsDelete = false,
+                RoleTitle = editRoleViewModel.RoleTitle
+            };
+
+            _permissionService.DeleteRole(role);
+            return RedirectToAction("Index");
+        }
+
+
+
+
     }
 }
