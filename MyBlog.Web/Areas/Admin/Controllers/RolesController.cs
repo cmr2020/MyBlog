@@ -27,11 +27,12 @@ namespace MyBlog.Web.Areas.Admin.Controllers
 
         public IActionResult CreateRole()
         {
+
             return View(_permissionService.GetPermissionRoleViewModel());
         }
 
         [HttpPost]
-        public IActionResult CreateRole(CreateRoleViewModel model)
+        public IActionResult CreateRole(CreateRoleViewModel model, List<int> SelectedPermission)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -43,8 +44,8 @@ namespace MyBlog.Web.Areas.Admin.Controllers
             };
             int roleId = _permissionService.AddRole(role);
 
-            List<int> selectedPermission = model.SelectedPermission.Select(p => p.PermissionId).ToList();
-            _permissionService.AddPermissionsToRole(roleId,selectedPermission );
+             model.SelectedPermission.Select(p => p.PermissionId).ToList();
+            _permissionService.AddPermissionsToRole(roleId, SelectedPermission);
 
             return RedirectToAction("Index");
         }
@@ -52,11 +53,13 @@ namespace MyBlog.Web.Areas.Admin.Controllers
 
         public IActionResult EditRole(int id)
         {
+            _permissionService.GetPermissionRoleViewModel();
+            ViewData["SelectedPermissions"] = _permissionService.PermissionsRole(id);
             return View(_permissionService.GetRoleViewModel(id));
         }
 
         [HttpPost]
-        public IActionResult EditRole(EditRoleViewModel editRoleViewModel)
+        public IActionResult EditRole(EditRoleViewModel editRoleViewModel, List<int> SelectedPermission)
         {
             if (!ModelState.IsValid)
                 return View();
@@ -70,7 +73,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
 
             _permissionService.UpdateRole(role);
 
-            //TODO Add Permission
+            _permissionService.UpdatePermissionsRole(role.RoleId,SelectedPermission);
 
             return RedirectToAction("Index");
         }

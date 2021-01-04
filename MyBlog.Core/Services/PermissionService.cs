@@ -100,12 +100,17 @@ namespace MyBlog.Core.Services
 
         public List<int> PermissionsRole(int roleId)
         {
-            throw new NotImplementedException();
+            return _db.RolePermission
+                  .Where(r => r.RoleId == roleId)
+                  .Select(r => r.PermissionId).ToList();
         }
 
         public void UpdatePermissionsRole(int roleId, List<int> permissions)
         {
-            throw new NotImplementedException();
+            _db.RolePermission.Where(p => p.RoleId == roleId)
+                   .ToList().ForEach(p => _db.RolePermission.Remove(p));
+
+            AddPermissionsToRole(roleId, permissions);
         }
 
         public void UpdateRole(Role role)
