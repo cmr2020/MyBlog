@@ -4,12 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.Core.DTOs.Role;
+using MyBlog.Core.Security;
 using MyBlog.Core.Services.Interfaces;
 using MyBlog.DataLayer.Entities.User;
 
 namespace MyBlog.Web.Areas.Admin.Controllers
 {
+   
+  
+   
+   
+
     [Area("Admin")]
+  
+
     public class RolesController : Controller
     {
         private IPermissionService _permissionService;
@@ -19,12 +27,13 @@ namespace MyBlog.Web.Areas.Admin.Controllers
         {
             _permissionService = permissionService;
         }
+        [PermissionChecker(6)]
         public IActionResult Index()
         {
             return View(_permissionService.GetRoles());
         }
 
-
+        [PermissionChecker(7)]
         public IActionResult CreateRole()
         {
 
@@ -50,7 +59,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-
+        [PermissionChecker(8)]
         public IActionResult EditRole(int id)
         {
             _permissionService.GetPermissionRoleViewModel();
@@ -78,7 +87,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-
+        [PermissionChecker(9)]
         public IActionResult DeleteRole(int id)
         {
             return View(_permissionService.GetRoleViewModel(id));

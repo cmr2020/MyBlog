@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MyBlog.Core.Security;
 using MyBlog.Core.Services.Interfaces;
 using MyBlog.DataLayer.Entities.PageGroup;
 
@@ -17,6 +18,8 @@ namespace MyBlog.Web.Areas.Admin.Controllers
         {
             _pageService = pageGroupService;
         }
+
+        [PermissionChecker(14)]
 
         public IActionResult Index()
         {
@@ -40,6 +43,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
         }
 
 
+        [PermissionChecker(15)]
         public IActionResult Create()
         {
             return View();
@@ -60,6 +64,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
         }
 
 
+        [PermissionChecker(16)]
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -108,6 +113,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
         }
 
 
+        [PermissionChecker(17)]
         public IActionResult Delete(int? id)
         {
             if (id == null)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.Core.DTOs;
+using MyBlog.Core.Security;
 using MyBlog.Core.Services.Interfaces;
 
 namespace MyBlog.Web.Areas.Admin.Controllers
@@ -20,7 +21,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
         }
 
 
-
+        [PermissionChecker(2)]
 
         public IActionResult Index(int pageId = 1, string filterUserName = "", string filterEmail = "")
         {
@@ -29,7 +30,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
         }
 
 
-
+        [PermissionChecker(3)]
         public IActionResult CreateUser()
         {
             ViewData["Roles"] = _permissionService.GetRoles();
@@ -55,7 +56,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
 
 
 
-
+        [PermissionChecker(4)]
         public IActionResult EditUser(int id)
         {
             var edituser = _userService.GetUserForShowInEditMode(id);
@@ -88,6 +89,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
             return View(_userService.GetDeleteUsers(pageId, filterEmail, filterUserName));
         }
 
+        [PermissionChecker(5)]
         public IActionResult DeleteUser(int id)
         {
             ViewData["UserId"] = id;

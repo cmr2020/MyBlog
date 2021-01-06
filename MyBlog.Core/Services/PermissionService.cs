@@ -55,7 +55,20 @@ namespace MyBlog.Core.Services
 
         public bool CheckPermission(int permissionId, string userName)
         {
-            throw new NotImplementedException();
+            int userId = _db.Users.Single(u => u.UserName == userName).UserId;
+
+            List<int> UserRoles = _db.UserRoles
+                .Where(r => r.UserId == userId).Select(r => r.RoleId).ToList();
+
+            if (!UserRoles.Any())
+                return false;
+
+            List<int> RolesPermission = _db.RolePermission
+                .Where(p => p.PermissionId == permissionId)
+                .Select(p => p.RoleId).ToList();
+
+            return RolesPermission.Any(p => UserRoles.Contains(p));
+
         }
 
         public CreateRoleViewModel GetPermissionRoleViewModel()

@@ -13,7 +13,7 @@ using MyBlog.DataLayer.Entities.Page;
 
 namespace MyBlog.Web.Areas.Admin.Controllers
 {
-    [PermissionChecker(1)]
+   
     [Area("Admin")]
     public class PagesController : Controller
     {
@@ -24,6 +24,9 @@ namespace MyBlog.Web.Areas.Admin.Controllers
             _pageService = pageService;
             _pageGroupService = pageGroupService;
         }
+
+
+        [PermissionChecker(10)]
         public IActionResult Index()
         {
             return View(_pageService.GetAllPage());
@@ -49,6 +52,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
         }
 
 
+        [PermissionChecker(11)]
         // GET: Admin/Pages/Create
         public IActionResult Create()
         {
@@ -90,7 +94,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
             return View(page);
         }
 
-
+        [PermissionChecker(12)]
         // GET: Admin/Pages/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -163,7 +167,7 @@ namespace MyBlog.Web.Areas.Admin.Controllers
             return View(page);
         }
 
-
+        [PermissionChecker(13)]
         public IActionResult Delete(int? id)
         {
             if (id == null)
