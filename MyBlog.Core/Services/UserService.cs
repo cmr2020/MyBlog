@@ -228,5 +228,10 @@ namespace MyBlog.Core.Services
            
             return information;
         }
+
+        public int GetUserIdByUserName(string userName)
+        {
+            return _context.Users.Single(u => u.UserName == userName).UserId;
+        }
     }
 }

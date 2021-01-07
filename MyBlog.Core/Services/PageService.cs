@@ -83,7 +83,7 @@ namespace MyBlog.Core.Services
                 PageTitle = p.PageTitle,
                 ShortDescription = p.ShortDescription,
                 PageGroupTitle = _db.PageGroups.SingleOrDefault(c => c.GroupID == p.GroupID).GroupTitle,
-                PageId=p.PageID
+                PageId = p.PageID
             }).Take(4).ToList();
 
         }
@@ -100,6 +100,27 @@ namespace MyBlog.Core.Services
                 p.PageTags.Contains(q)).ToList();
 
             return list.Distinct().ToList();
+        }
+
+        public void AddComment(PageComment comment)
+        {
+            _db.PageComments.Add(comment);
+            _db.SaveChanges();
+        }
+
+        public Tuple<List<PageComment>, int> GetPageComment(int pageId, int paging = 1)
+        {
+            int take = 5;
+            int skip = (paging - 1) * take;
+            int pageCount = _db.PageComments.Where(c => !c.IsDelete && c.PageID == pageId).Count() / take;
+
+            if ((pageCount % 2) != 0)
+            {
+                pageCount += 1;
+            }
+
+            return Tuple.Create(_db.PageComments.Include(c=>c.User).Where(c => !c.IsDelete && c.PageID == pageId).Skip(skip).Take(take)
+                .OrderByDescending(c=> c.CreateDate).ToList(), pageCount);
         }
     }
 }

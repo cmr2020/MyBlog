@@ -18,7 +18,7 @@ namespace MyBlog.Core.Services.Interfaces
         void UpdateUser(User user);
         bool ActiveAccount(string activeCode);
         void DeleteUser(int userId);
-
+        int GetUserIdByUserName(string userName);
 
 
         #region Admin Panel

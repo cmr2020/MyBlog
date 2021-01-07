@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.Core.Services.Interfaces;
+using MyBlog.DataLayer.Entities.Page;
 
 namespace MyBlog.Web.Controllers
 {
@@ -15,12 +16,12 @@ namespace MyBlog.Web.Controllers
     public class HomeController : Controller
     {
         private IPageService _pageRepoitory;
-        private IHostingEnvironment _environment;
+        private IUserService _userService;
 
-        public HomeController(IPageService pageRepoitory, IHostingEnvironment environment)
+        public HomeController(IPageService pageRepoitory, IUserService userService)
         {
             _pageRepoitory = pageRepoitory;
-            _environment = environment;
+            _userService = userService;
         }
         public IActionResult Index()
         {
@@ -34,6 +35,5 @@ namespace MyBlog.Web.Controllers
         {
             return View();
         }
-
     }
 }

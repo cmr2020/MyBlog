@@ -31,8 +31,15 @@ namespace MyBlog.DataLayer.Context
         public DbSet<RolePermission> RolePermission { get; set; }
 
         #endregion
+
+        #region Page
+
         public DbSet<PageGroup> PageGroups { get; set; }
         public DbSet<Page> Pages { get; set; }
+        public DbSet<PageComment> PageComments { get; set; }
+
+        #endregion
+
         public DbSet<About> Abouts { get; set; }
 
 

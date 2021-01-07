@@ -52,7 +52,7 @@ namespace MyBlog.DataLayer.Entities.Page
 
         //Navigation Property
         public virtual PageGroup.PageGroup PageGroup { get; set; }
-
+        public List<PageComment> PageComments { get; set; }
 
     }
 }

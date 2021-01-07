@@ -20,5 +20,13 @@ namespace MyBlog.Core.Services.Interfaces
         void DeletePage(int pageId);
         bool PageExists(int pageId);     
         void Save();
+
+
+        #region Comments
+
+        void AddComment(PageComment comment);
+        Tuple<List<PageComment>,int> GetPageComment(int pageId,int paging=1);
+
+        #endregion
     }
 }

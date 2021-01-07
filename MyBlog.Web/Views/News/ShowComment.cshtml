@@ -1,0 +1,57 @@
+﻿@using MyBlog.Core.Convertors
+@model Tuple<List<MyBlog.DataLayer.Entities.Page.PageComment>, int>
+
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model.Item1)
+{
+    <div class="author-view">
+        <div class="author">
+            <div class="avt">
+                <img src="/UserAvatar/@item.User.UserAvatar" alt="img">
+            </div>
+            <h3 class="name">
+                @item.User.UserName
+            </h3>
+        </div>
+        <div class="date-reply-comment">
+            <span class="date-comment">
+                @item.CreateDate.ToShamsi()
+            </span>
+        </div>
+    </div>
+    <div class="comment-body">
+        <div class="comment-content">
+            <p>
+                @item.Comment
+            </p>
+        </div>
+        <div class="comment-reply-link">
+            <span class="Comment">
+                <i class="icon fa fa-commenting" aria-hidden="true"></i>
+                نظر
+            </span>
+            <span class="like">
+                <i class="icon fa fa-thumbs-o-up" aria-hidden="true"></i>
+                1
+            </span>
+            <span class="dislike">
+                <i class="icon fa fa-thumbs-o-down" aria-hidden="true"></i>
+            </span>
+        </div>
+    </div>
+}
+
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+
+        @for (int i = 1; i <= Model.Item2; i++)
+        {
+            <li class="page-item"><a class="page-link" onclick="pageComment(@i)">@i</a></li>
+        }
+
+    </ul>
+</nav>
