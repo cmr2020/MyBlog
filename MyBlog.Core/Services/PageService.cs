@@ -114,13 +114,45 @@ namespace MyBlog.Core.Services
             int skip = (paging - 1) * take;
             int pageCount = _db.PageComments.Where(c => !c.IsDelete && c.PageID == pageId).Count() / take;
 
-            if ((pageCount % 2) != 0)
+            if ((pageCount % take) != 0)
             {
                 pageCount += 1;
             }
 
-            return Tuple.Create(_db.PageComments.Include(c=>c.User).Where(c => !c.IsDelete && c.PageID == pageId).Skip(skip).Take(take)
-                .OrderByDescending(c=> c.CreateDate).ToList(), pageCount);
+            return Tuple.Create(_db.PageComments.Include(c=>c.User).Where(c => !c.IsDelete && c.PageID == pageId).OrderByDescending(c => c.CreateDate).Skip(skip).Take(take)
+                .ToList(), pageCount);
+        }
+
+        public void AddVote(int userId, int pageId, bool vote)
+        {
+            var userVote = _db.PageVotes.FirstOrDefault(c => c.UserId == userId && c.PageID == pageId);
+
+            if(userVote != null)
+            {
+                userVote.Vote = vote;
+            }
+            else
+            {
+                userVote = new PageVote()
+                {
+                    PageID=pageId,
+                    UserId=userId,
+                    Vote=vote
+
+                };
+                _db.Add(userVote);
+
+            }
+            _db.SaveChanges();
+        }
+
+        public Tuple<int, int> GetPageVotes(int pageId)
+        {
+            var votes = _db.PageVotes.Where(v => v.PageID == pageId).Select(v=> v.Vote).ToList();
+
+
+
+            return Tuple.Create(votes.Count(c => c), votes.Count(c => !c));
         }
     }
 }

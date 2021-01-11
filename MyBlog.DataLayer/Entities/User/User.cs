@@ -52,6 +52,9 @@ namespace MyBlog.DataLayer.Entities.User
 
         public virtual List<UserRole> UserRoles { get; set; }
         public List<Page.PageComment> PageComments { get; set; }
+        public List<Page.PageVote> PageVotes { get; set; }
+
+
         #endregion
 
     }

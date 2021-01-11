@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBlog.DataLayer.Context;
 
 namespace MyBlog.DataLayer.Migrations
 {
     [DbContext(typeof(MyBlogContext))]
-    partial class MyBlogContextModelSnapshot : ModelSnapshot
+    [Migration("20210109155159_int_tblVotes")]
+    partial class int_tblVotes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,6 +130,9 @@ namespace MyBlog.DataLayer.Migrations
                     b.Property<int>("PageID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PageVoteVoteId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -140,6 +145,8 @@ namespace MyBlog.DataLayer.Migrations
                     b.HasKey("VoteId");
 
                     b.HasIndex("PageID");
+
+                    b.HasIndex("PageVoteVoteId");
 
                     b.HasIndex("UserId");
 
@@ -324,10 +331,14 @@ namespace MyBlog.DataLayer.Migrations
             modelBuilder.Entity("MyBlog.DataLayer.Entities.Page.PageVote", b =>
                 {
                     b.HasOne("MyBlog.DataLayer.Entities.Page.Page", "Page")
-                        .WithMany("PageVotes")
+                        .WithMany()
                         .HasForeignKey("PageID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("MyBlog.DataLayer.Entities.Page.PageVote", null)
+                        .WithMany("PageVotes")
+                        .HasForeignKey("PageVoteVoteId");
 
                     b.HasOne("MyBlog.DataLayer.Entities.User.User", "User")
                         .WithMany("PageVotes")
@@ -388,7 +399,10 @@ namespace MyBlog.DataLayer.Migrations
             modelBuilder.Entity("MyBlog.DataLayer.Entities.Page.Page", b =>
                 {
                     b.Navigation("PageComments");
+                });
 
+            modelBuilder.Entity("MyBlog.DataLayer.Entities.Page.PageVote", b =>
+                {
                     b.Navigation("PageVotes");
                 });
 

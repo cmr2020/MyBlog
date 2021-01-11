@@ -37,6 +37,7 @@ namespace MyBlog.DataLayer.Context
         public DbSet<PageGroup> PageGroups { get; set; }
         public DbSet<Page> Pages { get; set; }
         public DbSet<PageComment> PageComments { get; set; }
+        public DbSet<PageVote> PageVotes { get; set; }
 
         #endregion
 

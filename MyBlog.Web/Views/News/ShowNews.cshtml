@@ -105,6 +105,14 @@
                             <i class="icon fa fa-twitter" aria-hidden="true"></i>
                         </div>
                     </div>
+
+                    <div id="vot">
+
+
+                    </div>
+
+
+
                     <div class="comments-area">
                         <h3 class="custom_blog_title">
                             نظرات <span class="count">(2)</span>
@@ -169,6 +177,16 @@
 
         function pageComment(pageid) {
             $("#listComment").load("/News/ShowComment/" + @Model.PageID+"?pageId="+pageid);
+        }
+
+         $(function() {
+             $("#vot").load("/News/PageVote/@Model.PageID");
+         });
+
+         function vote(vote) {
+            $("#vot").fadeOut('slow');
+             $("#vot").load("/News/AddVote/@(Model.PageID)?vote=" + vote);
+            $("#vot").fadeIn('slow');
         }
     </script>
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.Core.Services.Interfaces;
 using MyBlog.DataLayer.Entities.Page;
@@ -64,7 +65,18 @@ namespace MyBlog.Web.Controllers
             return View(pageRepoitory.GetPageComment(id, pageId));
         }
 
+        public IActionResult PageVote(int Id)
+        {
+            return PartialView(pageRepoitory.GetPageVotes(Id));
+        }
 
+        [Authorize]
+        public IActionResult AddVote(int id,bool vote)
+        {
+            pageRepoitory.AddVote(_userService.GetUserIdByUserName(User.Identity.Name), id, vote);
+
+            return PartialView("PageVote",pageRepoitory.GetPageVotes(id));
+        }
     }
 
 }

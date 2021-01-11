@@ -8,6 +8,8 @@ namespace MyBlog.Core.Services.Interfaces
 {
     public interface IPageService
     {
+
+        #region Page
         IEnumerable<Page> GetAllPage();
         IEnumerable<ShowTopPageViewModel> GetTopPage(int take = 4);
         IEnumerable<GetLatesPageViewModel> GetLatesPage();
@@ -20,12 +22,19 @@ namespace MyBlog.Core.Services.Interfaces
         void DeletePage(int pageId);
         bool PageExists(int pageId);     
         void Save();
-
+        #endregion
 
         #region Comments
 
         void AddComment(PageComment comment);
         Tuple<List<PageComment>,int> GetPageComment(int pageId,int paging=1);
+
+        #endregion
+
+        #region Page Vote
+
+        void AddVote(int userId, int pageId, bool vote);
+        Tuple<int, int> GetPageVotes(int pageId);
 
         #endregion
     }
