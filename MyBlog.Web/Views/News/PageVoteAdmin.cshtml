@@ -1,4 +1,4 @@
-﻿@model Tuple<int,int>
+﻿@model Tuple<int, int>
 
 
 @if (User.Identity.IsAuthenticated)
@@ -9,11 +9,11 @@
         <p>
             <a class="btn btn-success" onclick="vote(true)">
 
-                میپسندم ()
+                میپسندم (@Model.Item1)
             </a>
             <a class="btn btn-danger" onclick="vote(false)">
 
-                نمی پسندم ()
+                نمی پسندم (@Model.Item2)
             </a>
         </p>
     </div>

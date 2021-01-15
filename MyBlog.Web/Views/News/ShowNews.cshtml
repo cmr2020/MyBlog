@@ -112,6 +112,10 @@
                     </div>
 
 
+                    <div id="adminvote">
+
+
+                    </div>
 
                     <div class="comments-area">
                         <h3 class="custom_blog_title">
@@ -156,7 +160,7 @@
                             </li>
                         </ul>
                     </div>
-                  
+
                 </div>
             </div>
 
@@ -165,7 +169,7 @@
 </div>
 @section Scripts
     {
-    <script src="/assets/js/jquery.unobtrusive-ajax.js" ></script>
+    <script src="/assets/js/jquery.unobtrusive-ajax.js"></script>
     <script>
         function Success() {
             $("#comment_Comment").val("");
@@ -179,14 +183,31 @@
             $("#listComment").load("/News/ShowComment/" + @Model.PageID+"?pageId="+pageid);
         }
 
+
+
          $(function() {
              $("#vot").load("/News/PageVote/@Model.PageID");
-         });
+                });
 
-         function vote(vote) {
+        
+
+
+          @if (ViewData["Checkrole"] != null )
+          {
+
+
+            $(function () {
+                $("#adminvote").load("/News/PageVoteAdmin/@Model.PageID");
+              });
+
+               }
+
+              function vote(vote) {
             $("#vot").fadeOut('slow');
              $("#vot").load("/News/AddVote/@(Model.PageID)?vote=" + vote);
             $("#vot").fadeIn('slow');
-        }
+              }
+
+
     </script>
 }

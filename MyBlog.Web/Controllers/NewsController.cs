@@ -4,25 +4,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyBlog.Core.Security;
 using MyBlog.Core.Services.Interfaces;
 using MyBlog.DataLayer.Entities.Page;
 
 namespace MyBlog.Web.Controllers
 {
+   
     public class NewsController : Controller
     {
+       
         private IPageService pageRepoitory;
         private IUserService _userService;
-        public NewsController(IPageService pageRepoitory, IUserService userService)
+        private IPermissionService _permissionService;
+        public NewsController(IPageService pageRepoitory, IUserService userService,IPermissionService permissionService)
         {
             this.pageRepoitory = pageRepoitory;
             _userService = userService;
+            _permissionService = permissionService;
         }
 
 
         [Route("News/{newsId}")]
         public IActionResult ShowNews(int newsId)
         {
+            ViewData["Checkrole"] = _permissionService.CheckPermission( 18, User.Identity.Name);
             var page = pageRepoitory.GetPageById(newsId);
 
             if (page != null)
@@ -65,9 +71,9 @@ namespace MyBlog.Web.Controllers
             return View(pageRepoitory.GetPageComment(id, pageId));
         }
 
-        public IActionResult PageVote(int Id)
+        public IActionResult PageVote()
         {
-            return PartialView(pageRepoitory.GetPageVotes(Id));
+            return PartialView();
         }
 
         [Authorize]
@@ -77,6 +83,18 @@ namespace MyBlog.Web.Controllers
 
             return PartialView("PageVote",pageRepoitory.GetPageVotes(id));
         }
+
+
+        [PermissionChecker(18)]
+        public IActionResult PageVoteAdmin(int Id)
+        {
+
+         
+                return PartialView(pageRepoitory.GetPageVotes(Id));
+            
+        }
+
+
     }
 
 }
