@@ -10,14 +10,14 @@ using MyBlog.DataLayer.Entities.Page;
 
 namespace MyBlog.Web.Controllers
 {
-   
+
     public class NewsController : Controller
     {
-       
+
         private IPageService pageRepoitory;
         private IUserService _userService;
         private IPermissionService _permissionService;
-        public NewsController(IPageService pageRepoitory, IUserService userService,IPermissionService permissionService)
+        public NewsController(IPageService pageRepoitory, IUserService userService, IPermissionService permissionService)
         {
             this.pageRepoitory = pageRepoitory;
             _userService = userService;
@@ -28,11 +28,15 @@ namespace MyBlog.Web.Controllers
         [Route("News/{newsId}")]
         public IActionResult ShowNews(int newsId)
         {
-            if (_permissionService.CheckPermission( 18, User.Identity.Name) &&User.Identity.IsAuthenticated)
+
+
+            if (User.Identity.IsAuthenticated)
             {
-                ViewBag.Checkrole = true;
+                if (_permissionService.CheckPermission(18, User.Identity.Name))
+                {
+                    ViewBag.Checkrole = true;
+                }
             }
-            
             var page = pageRepoitory.GetPageById(newsId);
 
             if (page != null)
@@ -81,11 +85,11 @@ namespace MyBlog.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult AddVote(int id,bool vote)
+        public IActionResult AddVote(int id, bool vote)
         {
             pageRepoitory.AddVote(_userService.GetUserIdByUserName(User.Identity.Name), id, vote);
 
-            return PartialView("PageVote",pageRepoitory.GetPageVotes(id));
+            return PartialView("PageVote", pageRepoitory.GetPageVotes(id));
         }
 
 
@@ -93,9 +97,9 @@ namespace MyBlog.Web.Controllers
         public IActionResult PageVoteAdmin(int Id)
         {
 
-         
-                return PartialView(pageRepoitory.GetPageVotes(Id));
-            
+
+            return PartialView(pageRepoitory.GetPageVotes(Id));
+
         }
 
 
