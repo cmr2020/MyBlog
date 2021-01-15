@@ -28,7 +28,11 @@ namespace MyBlog.Web.Controllers
         [Route("News/{newsId}")]
         public IActionResult ShowNews(int newsId)
         {
-            ViewData["Checkrole"] = _permissionService.CheckPermission( 18, User.Identity.Name);
+            if (_permissionService.CheckPermission( 18, User.Identity.Name))
+            {
+                ViewBag.Checkrole = true;
+            }
+            
             var page = pageRepoitory.GetPageById(newsId);
 
             if (page != null)

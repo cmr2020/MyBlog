@@ -111,11 +111,21 @@
 
                     </div>
 
+                    @if (ViewBag.Checkrole != null)
+                    {
 
-                    <div id="adminvote">
+                        <div id="adminvote">
 
 
-                    </div>
+                        </div>
+                        <script>
+                        $(function () {
+                            $("#adminvote").load("/News/PageVoteAdmin/@Model.PageID");
+                        });
+                        </script>
+
+
+                    }
 
                     <div class="comments-area">
                         <h3 class="custom_blog_title">
@@ -185,28 +195,21 @@
 
 
 
-         $(function() {
-             $("#vot").load("/News/PageVote/@Model.PageID");
-                });
-
-        
+        $(function() {
+            $("#vot").load("/News/PageVote/@Model.PageID");
+        });
 
 
-          @if (ViewData["Checkrole"] != null )
-          {
 
 
-            $(function () {
-                $("#adminvote").load("/News/PageVoteAdmin/@Model.PageID");
-              });
 
-               }
 
-              function vote(vote) {
+
+        function vote(vote) {
             $("#vot").fadeOut('slow');
-             $("#vot").load("/News/AddVote/@(Model.PageID)?vote=" + vote);
+            $("#vot").load("/News/AddVote/@(Model.PageID)?vote=" + vote);
             $("#vot").fadeIn('slow');
-              }
+        }
 
 
     </script>
