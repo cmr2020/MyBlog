@@ -110,22 +110,11 @@
 
 
                     </div>
-
-                    @if (ViewBag.Checkrole != null)
-                    {
-
-                        <div id="adminvote">
+                    <div id="adminvote">
 
 
-                        </div>
-                        <script>
-                        $(function () {
-                            $("#adminvote").load("/News/PageVoteAdmin/@Model.PageID");
-                        });
-                        </script>
+                    </div>
 
-
-                    }
 
                     <div class="comments-area">
                         <h3 class="custom_blog_title">
@@ -213,4 +202,15 @@
 
 
     </script>
+    @if (ViewBag.Checkrole != null)
+    {
+
+        <script>
+        $(function () {
+            $("#adminvote").load("/News/PageVoteAdmin/@Model.PageID");
+        });
+        </script>
+
+    }
+
 }
